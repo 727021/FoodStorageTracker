@@ -1,5 +1,5 @@
 package com.fstracker.foodstoragetracker;
-// Andrew
+// CS246
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
