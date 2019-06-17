@@ -4,4 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuActivity"/>
+    android:background="	#000000"
+    tools:context=".MenuActivity"
+
+    >
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="365dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="	#000000"
+        android:drawableLeft="@android:drawable/ic_input_add"
+        android:text="Add  an Item to the food Storage"
+        android:textColor="	#ffffff"
+        android:textColorHighlight="#00ECEBEB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.159"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="364dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:background="	#000000"
+        android:drawableLeft="@android:drawable/ic_menu_sort_alphabetically"
+        android:text="Modify  an Item to the food Storage"
+        android:textColor="	#ffffff"
+        android:textColorHighlight="#00ECEBEB"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+</androidx.constraintlayout.widget.ConstraintLayout>
