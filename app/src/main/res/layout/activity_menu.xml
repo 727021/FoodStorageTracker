@@ -1,55 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="	#000000"
-    tools:context=".MenuActivity"
+    tools:context=".MenuActivity">
 
-    >
-
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="396dp"
-        android:layout_height="61dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="140dp"
+    <EditText
+        android:id="@+id/txtSearchName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="489dp"
-        android:background="	#000000"
-        android:drawableStart="@android:drawable/ic_input_add"
-        android:drawableLeft="@android:drawable/ic_input_add"
-        android:onClick="@string/title_activity_add_item"
-        android:text="Add  an Item to the food Storage"
-        android:textColor="	#ffffff"
-        android:textColorHighlight="#00ECEBEB"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.159"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:ems="10"
+        android:hint="@string/hint_search"
+        android:inputType="textPersonName"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnSearchName"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearchName"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="396dp"
+        android:id="@+id/btnSearchName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:onClick="searchNameClick"
+        android:text="@string/button_search_name_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
+
+    <Spinner
+        android:id="@+id/spnSearchCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="12dp"
-        android:layout_marginBottom="-55dp"
-        android:background="	#000000"
-        android:drawableStart="@android:drawable/ic_menu_sort_alphabetically"
-        android:drawableLeft="@android:drawable/ic_menu_sort_alphabetically"
-        android:text="Modify  an Item to the food Storage"
-        android:textColor="	#ffffff"
-        android:textColorHighlight="#00ECEBEB"
-        app:layout_constraintEnd_toEndOf="@+id/button"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearchCategory"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
-</RelativeLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnSearchCategory" />
+
+    <Button
+        android:id="@+id/btnSearchCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:onClick="searchCategoryClick"
+        android:text="@string/button_search_category_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchName" />
+
+    <Button
+        android:id="@+id/btnAddItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="addItemClick"
+        android:text="@string/button_addItem_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnAllItems"
+        app:layout_constraintEnd_toStartOf="@+id/btnAllItems"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnAllItems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="allItemsClick"
+        android:text="@string/button_allItems_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnSettings"
+        app:layout_constraintEnd_toStartOf="@+id/btnSettings"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnAddItem" />
+
+    <Button
+        android:id="@+id/btnSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="settingsClick"
+        android:text="@string/button_Settings_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnAllItems"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

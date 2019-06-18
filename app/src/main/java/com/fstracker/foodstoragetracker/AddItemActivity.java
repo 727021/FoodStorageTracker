@@ -13,16 +13,18 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class AddItem extends AppCompatActivity {
-    private static final String TAG = "MainActivity" ;
+public class AddItemActivity extends AppCompatActivity {
+    private final String TAG = getClass().getSimpleName();
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     //private DatePickerDialog.OnDateSetListener mDateSetListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-        /***************************
+
+        /*
          * This will create the text View for the Expiration Date
          */
         mDisplayDate = (TextView) findViewById(R.id.tvDate);
@@ -35,7 +37,7 @@ public class AddItem extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        AddItem.this,
+                        AddItemActivity.this,
                         android.R.style.Theme_Holo_Dialog_MinWidth,
                         mDateSetListener,
                         year, month, day);
@@ -43,7 +45,6 @@ public class AddItem extends AppCompatActivity {
                 dialog.show();
             }
         });
-
 
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -56,6 +57,5 @@ public class AddItem extends AppCompatActivity {
 
             }
         };
-
     }
 }

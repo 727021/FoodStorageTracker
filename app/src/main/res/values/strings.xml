@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Food Storage Tracker</string>
     <string name="title_activity_add_item">AddItem</string>
+    <string name="button_search_name_text">Search by Name</string>
+    <string name="button_search_category_text">Search by Category</string>
+    <string name="button_addItem_text">Add Item</string>
+    <string name="button_allItems_text">All Items</string>
+    <string name="button_Settings_text">Settings</string>
+    <string name="activity_addItem_title">Food Storage Tracker - Add Item</string>
+    <string name="hint_search">Search...</string>
 </resources>
