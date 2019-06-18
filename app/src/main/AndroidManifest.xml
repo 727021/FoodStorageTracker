@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".DeleteItemActivity"
+            android:label="@string/activity_deleteItem_title">
+        </activity>
+        <activity
             android:name=".AddItemActivity"
             android:label="@string/activity_addItem_title"
             android:parentActivityName=".MenuActivity">
