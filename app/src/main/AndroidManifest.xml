@@ -9,11 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AllItem"
-            android:parentActivityName=".MenuActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
+        <activity
+            android:name=".AllItem"
+            android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".DeleteItemActivity"
-            android:label="@string/activity_deleteItem_title"></activity>
+            android:label="@string/activity_deleteItem_title" />
         <activity
             android:name=".AddItemActivity"
             android:label="@string/activity_addItem_title"

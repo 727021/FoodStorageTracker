@@ -2,7 +2,9 @@ package com.fstracker.foodstoragetracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -44,15 +48,6 @@ public class MenuActivity extends AppCompatActivity {
      * Open ViewListActivity.
      * @param v The button that was clicked.
      */
-    public void allItemsClick(View v) {
-        // Tell ViewListActivity to display all items
-        Log.d(TAG, "Open ViewListActivity and display all items");
-    }
-
-    /**
-     * Open ViewListActivity.
-     * @param v The button that was clicked.
-     */
     public void searchNameClick(View v) {
         // Tell ViewListActivity to display all items that match a search String
         String search = ((TextView)findViewById(R.id.txtSearchName)).getText().toString();
@@ -75,5 +70,7 @@ public class MenuActivity extends AppCompatActivity {
      */
     public void settingsClick(View v) {
         Log.d(TAG, "Open SettingsActivity");
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivity(intent);
     }
 }

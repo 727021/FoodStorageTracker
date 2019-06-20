@@ -65,21 +65,10 @@
         android:layout_height="wrap_content"
         android:onClick="addItemClick"
         android:text="@string/button_addItem_text"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btnAllItems"
-        app:layout_constraintEnd_toStartOf="@+id/btnAllItems"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnAllItems"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="allItemsClick"
-        android:text="@string/button_allItems_text"
         app:layout_constraintBaseline_toBaselineOf="@+id/btnSettings"
         app:layout_constraintEnd_toStartOf="@+id/btnSettings"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnAddItem" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnSettings"
@@ -90,7 +79,7 @@
         android:text="@string/button_Settings_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnAllItems"
+        app:layout_constraintStart_toEndOf="@+id/btnAddItem"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

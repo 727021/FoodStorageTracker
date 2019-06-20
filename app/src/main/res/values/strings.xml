@@ -12,4 +12,5 @@
     <string name="confirm_delete_text">Are you sure you want to delete this item:</string>
     <string name="button_cancel_text">Cancel</string>
     <string name="button_delete_text">Delete</string>
+    <string name="default_settings_json">{"darkMode":false,"dateFormat":0,"dayReminder":7,"useScanner":true}</string>
 </resources>

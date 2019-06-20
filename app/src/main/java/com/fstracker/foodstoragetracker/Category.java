@@ -2,7 +2,7 @@ package com.fstracker.foodstoragetracker;
 
 public enum Category {
     // Temporary categories (these will change)
-    CAT_1("Category 1"),
+    ALL("All"),
     CAT_2("Category 2"),
     CAT_3("Category 3"),
     CAT_4("Category 4"),
