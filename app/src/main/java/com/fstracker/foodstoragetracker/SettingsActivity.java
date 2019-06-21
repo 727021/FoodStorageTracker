@@ -5,40 +5,53 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
 public class SettingsActivity extends AppCompatActivity {
-    public static final String SETTINGS_KEY = "com.fstracker.foodstoragetracker.SETTINGS";
+
     private String TAG = getClass().getSimpleName();
-    private static final Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Settings.settings.darkMode = true;
-        Settings.settings.dateFormat = 1;
-        Settings.settings.useScanner = false;
-        Settings.settings.dayReminder = 14;
 
+        // Fill date format spinner
+        Spinner spnDateFormat = findViewById(R.id.spnDateFormat);
+        ArrayAdapter<String> dfAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.date_formats));
+        dfAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnDateFormat.setAdapter(dfAdapter);
 
+        // Fill time units spinner
+        Spinner spnReminderUnits = findViewById(R.id.spnReminderUnits);
+        ArrayAdapter<String> ruAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.notification_time_units));
+        ruAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnReminderUnits.setAdapter(ruAdapter);
 
-        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+        // Fill views with the current app settings
+        ((Switch)findViewById(R.id.switchDarkMode)).setChecked(Settings.settings.darkMode);
+        ((Switch)findViewById(R.id.switchScanner)).setChecked(Settings.settings.useScanner);
+        spnDateFormat.setSelection(Settings.settings.dateFormat);
+        ((TextView)findViewById(R.id.txtReminderTime)).setText(String.valueOf(Settings.settings.reminderTime));
+        spnReminderUnits.setSelection(Settings.settings.reminderUnits);
+    }
 
-        String json1 = prefs.getString(SettingsActivity.SETTINGS_KEY, getString(R.string.default_settings_json));
-        Log.d(TAG, "Current: " + json1);
-        Settings.settings = new Gson().fromJson(json1, Settings.class);
+    @Override
+    protected void onStop() {
+        super.onStop();
 
-
-
-
-
-        String json = gson.toJson(Settings.settings);
-        Log.d(TAG, "New: " + json);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(SETTINGS_KEY, json);
+        // Save settings to SharedPreferences
+        String json = new Gson().toJson(Settings.settings);
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+        editor.putString(Settings.SETTINGS_KEY, json);
         editor.apply();
+        Log.d(TAG, "Saved settings: " + json);
     }
 }

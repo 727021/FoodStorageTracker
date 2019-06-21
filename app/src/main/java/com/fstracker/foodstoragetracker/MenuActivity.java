@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,13 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        // Initialize app settings
+        if (Settings.settings == null) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            String json = prefs.getString(Settings.SETTINGS_KEY, getString(R.string.default_settings_json));
+            Settings.settings = new Gson().fromJson(json, Settings.class);
+        }
 
         // Fill the category spinner
         Spinner spnSearchCategory = findViewById(R.id.spnSearchCategory);

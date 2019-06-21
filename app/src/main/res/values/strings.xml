@@ -8,9 +8,15 @@
     <string name="button_Settings_text">Settings</string>
     <string name="activity_addItem_title">Food Storage Tracker - Add Item</string>
     <string name="activity_deleteItem_title">Food Storage Tracker - Delete Item</string>
+    <string name="activity_settings_title">Food Storage Tracker - Settings</string>
     <string name="hint_search">Search...</string>
     <string name="confirm_delete_text">Are you sure you want to delete this item:</string>
     <string name="button_cancel_text">Cancel</string>
     <string name="button_delete_text">Delete</string>
-    <string name="default_settings_json">{"darkMode":false,"dateFormat":0,"dayReminder":7,"useScanner":true}</string>
+    <string name="default_settings_json">{"darkMode":false,"dateFormat":0,"reminderTime":1,"reminderUnits":1,"useScanner":true}</string>
+    <string name="darkmode_text" >Dark Mode</string>
+    <string name="usescanner_text">Use Scanner</string>
+    <string name="dateformat_text">Date Format:</string>
+    <string name="send_notifications">Send notifications</string>
+    <string name="before_food_expires">before food expires.</string>
 </resources>
