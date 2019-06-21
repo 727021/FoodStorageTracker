@@ -3,10 +3,18 @@ package com.fstracker.foodstoragetracker;
 public enum Category {
     // Temporary categories (these will change)
     ALL("All"),
-    CAT_2("Category 2"),
-    CAT_3("Category 3"),
-    CAT_4("Category 4"),
-    CAT_5("Category 5");
+    CAT_2("Baking Mixes"),
+    CAT_3("Can"),
+    CAT_4("Cereals"),
+    CAT_5("Dairy"),
+    CAT_6("Drink Mixes"),
+    CAT_7("Fruits"),
+    CAT_8("Grains & Flours"),
+    CAT_9("Meats & Proteins"),
+    CAT_10("Produce"),
+    CAT_11("Vegetables");
+
+
 
     private String name;
 

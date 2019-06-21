@@ -9,9 +9,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -52,6 +54,19 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
 
+        // Fill the category spinner
+        Spinner spnSearchCategory2 = findViewById(R.id.spnSearchCategory2);
+        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnSearchCategory2.setAdapter(adapter);
+
+
+        // Fill the FoodUnit spinner
+        Spinner spnSearchFoodUnit = findViewById(R.id.spnSearchFoodUnit);
+        ArrayAdapter<Food_Unit> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Food_Unit.values());
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnSearchFoodUnit.setAdapter(adapter2);
+
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
@@ -74,14 +89,14 @@ public class AddItemActivity extends AppCompatActivity {
     public void openAllItemActivity(){
         EditText editText = (EditText) findViewById((R.id.editText));
         String text = editText.getText().toString();
-        EditText editText2 = (EditText) findViewById((R.id.editText2));
-        String text2 = editText.getText().toString();
+//        EditText editText2 = (EditText) findViewById((R.id.editText2));
+  //      String text2 = editText.getText().toString();
         TextView tvDate = (TextView) findViewById((R.id.tvDate));
         String text3 = editText.getText().toString();
 
         Intent intent = new Intent (this, AllItem.class);
         intent.putExtra(EXTRA_TEXT1, text);
-        intent.putExtra(EXTRA_TEXT2, text2);
+    //    intent.putExtra(EXTRA_TEXT2, text2);
         intent.putExtra(EXTRA_TEXT3, text3);
 
         startActivity(intent);
