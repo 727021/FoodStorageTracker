@@ -19,4 +19,5 @@
     <string name="dateformat_text">Date Format:</string>
     <string name="send_notifications">Send notifications</string>
     <string name="before_food_expires">before food expires.</string>
+    <string name="button_save_text">Save</string>
 </resources>

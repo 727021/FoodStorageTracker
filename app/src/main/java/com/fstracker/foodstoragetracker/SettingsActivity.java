@@ -3,10 +3,12 @@ package com.fstracker.foodstoragetracker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -17,6 +19,7 @@ import com.google.gson.Gson;
 public class SettingsActivity extends AppCompatActivity {
 
     private String TAG = getClass().getSimpleName();
+    private boolean cancel = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +49,27 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        if (!cancel)
+            saveSettings();
+    }
 
-        // Save settings to SharedPreferences
+    private void saveSettings() {
         String json = new Gson().toJson(Settings.settings);
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
         editor.putString(Settings.SETTINGS_KEY, json);
         editor.apply();
         Log.d(TAG, "Saved settings: " + json);
+    }
+
+    public void saveClick(View v) {
+        saveSettings();
+        Intent intent = new Intent(getApplicationContext(), getParent().getClass());
+        startActivity(intent);
+    }
+
+    public void cancelClick(View v) {
+        cancel = true;
+        Intent intent = new Intent(getApplicationContext(), getParent().getClass());
+        startActivity(intent);
     }
 }
