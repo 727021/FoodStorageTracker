@@ -6,6 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+
+import java.util.Date;
 
 public class ViewItemActivity extends AppCompatActivity {
 
@@ -15,6 +20,22 @@ public class ViewItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item);
+        String foodItemString = getIntent().getStringExtra(FoodItem.EXTRA);
+        FoodItem foodItem = new Gson().fromJson(foodItemString, FoodItem.class);
+
+        String name = foodItem.getName();
+        Date expirationDate = foodItem.getExpirationDate();
+        Category category = foodItem.getCategory();
+        Unit units = foodItem.getUnits();
+        double quantity = foodItem.getQuantity();
+
+        String displayText = "Name: " + name + "\n" +
+                "Category: " + category + "\n" +
+                "Expiration Date: " + expirationDate + "\n" +
+                "Amount: " + quantity + " " + units;
+
+        TextView textView = findViewById(R.id.tvViewItem);
+        textView.setText(displayText);
     }
 
     /**
