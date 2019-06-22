@@ -20,4 +20,6 @@
     <string name="send_notifications">Send notifications</string>
     <string name="before_food_expires">before food expires.</string>
     <string name="button_save_text">Save</string>
+    <string name="activity_ViewItem_title">Food Storage Tracker - View Item</string>
+    <string name="activity_ViewList_title">Food Storage Tracker - View List</string>
 </resources>
