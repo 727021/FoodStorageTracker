@@ -14,7 +14,7 @@
     <string name="button_cancel_text">Cancel</string>
     <string name="button_delete_text">Delete</string>
     <string name="default_settings_json">{"darkMode":false,"dateFormat":0,"reminderTime":1,"reminderUnits":1,"useScanner":true}</string>
-    <string name="darkmode_text" >Dark Mode</string>
+    <string name="darkmode_text">Dark Mode</string>
     <string name="usescanner_text">Use Scanner</string>
     <string name="dateformat_text">Date Format:</string>
     <string name="send_notifications">Send notifications</string>

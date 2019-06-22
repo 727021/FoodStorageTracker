@@ -32,7 +32,7 @@ public class ModifyItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
+                int year = cal.get(Calendar.YEAR);  
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
@@ -46,7 +46,7 @@ public class ModifyItemActivity extends AppCompatActivity {
             }
         });
         // Fill the category spinner
-        Spinner spnSearchCategory3 = findViewById(R.id.spnSearchCategory3); 
+        Spinner spnSearchCategory3 = findViewById(R.id.spnSearchCategory3);
         ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory3.setAdapter(adapter);
