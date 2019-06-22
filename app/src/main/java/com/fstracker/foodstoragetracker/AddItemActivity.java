@@ -87,6 +87,8 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     public void openAllItemActivity() {
+        // TODO Validate input
+
         // Create a FoodItem
         FoodItem foodItem = new FoodItem();
         SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);

@@ -60,6 +60,8 @@ public class MenuActivity extends AppCompatActivity {
         // Tell ViewListActivity to display all items that match a search String
         String search = ((TextView)findViewById(R.id.txtSearchName)).getText().toString();
         Log.d(TAG, String.format("Open ViewListActivity and display matching items for \"%s\"", search));
+        Intent intent = new Intent(getApplicationContext(), ViewListActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -70,6 +72,8 @@ public class MenuActivity extends AppCompatActivity {
         // Tell ViewListActivity to display all items in a category
         Category category =  (Category)((Spinner)findViewById(R.id.spnSearchCategory)).getSelectedItem();
         Log.d(TAG, String.format("Open ViewListActivity and display items in category \"%s\"", category.toString()));
+        Intent intent = new Intent(getApplicationContext(), ViewListActivity.class);
+        startActivity(intent);
     }
 
     /**
