@@ -1,12 +1,18 @@
 package com.fstracker.foodstoragetracker;
 
 public enum Unit {
-    // Temporary units (these will change)
-    UNIT_1("Unit 1", "u1"),
-    UNIT_2("Unit 2", "u2"),
-    UNIT_3("Unit 3", "u3"),
-    UNIT_4("Unit 4", "u4"),
-    UNIT_5("Unit 5", "u5");
+    ALL("All", ""),
+    CUP("Cup", "c"),
+    FLUID_OUNCE("Fluid Ounce", "fl oz"),
+    GALLON("Gallon", "gal"),
+    GRAM("Gram", "g"),
+    KILOGRAM("Kilogram", "Kg"),
+    LITER("Liter", "L"),
+    MILLIGRAM("Milligram", "mg"),
+    OUNCE("Ounce", "oz"),
+    PINT("Pint", "pt"),
+    POUND("Pound", "lbs"),
+    QUART("Quart", "qt");
 
     private String name;
     private String symbol;

@@ -3,6 +3,8 @@ package com.fstracker.foodstoragetracker;
 import java.util.Date;
 
 public class FoodItem {
+    public static final transient String EXTRA = "com.fstracker.foodstoragetracker.FOOD_ITEM";
+
     private int id;
     private String name;
     private Date expirationDate;

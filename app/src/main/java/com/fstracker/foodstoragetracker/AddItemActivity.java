@@ -16,13 +16,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
+import com.google.gson.Gson;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -72,7 +68,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         // Fill the FoodUnit spinner
         Spinner spnSearchFoodUnit = findViewById(R.id.spnSearchFoodUnit);
-        ArrayAdapter<Food_Unit> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Food_Unit.values());
+        ArrayAdapter<Unit> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Unit.values());
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchFoodUnit.setAdapter(adapter2);
 
@@ -97,29 +93,18 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     public void openAllItemActivity() {
-        EditText editText = (EditText) findViewById((R.id.editText));
-        String text = editText.getText().toString();
-        EditText editText2 = (EditText) findViewById((R.id.editText2));
-        String text2 = editText.getText().toString();
-        TextView tvDate = (TextView) findViewById((R.id.tvDate));
-        String text3 = editText.getText().toString();
-
-        Intent intent = new Intent (this, AllItem.class);
-        intent.putExtra(EXTRA_TEXT1, text);
-    //    intent.putExtra(EXTRA_TEXT2, text2);
-        intent.putExtra(EXTRA_TEXT3, text3);
         // Create a FoodItem
         FoodItem foodItem = new FoodItem();
         SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
         foodItem.setName(((TextView)findViewById(R.id.editText)).getText().toString());
-        //foodItem.setCategory(((Spinner)findViewById(R.id.spnSearchCategory2)).getSelectedItem());
+        foodItem.setCategory(((Spinner)findViewById(R.id.spnSearchCategory2)).getSelectedItem());
         try {
             foodItem.setExpirationDate(sdf.parse(((TextView)findViewById(R.id.tvDate)).getText().toString()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         foodItem.setQuantity(new Double(((TextView)findViewById(R.id.editText3)).getText().toString()));
-        //foodItem.setUnits(((Spinner)findViewById(R.id.spnSearchFoodUnit)).getSelectedItem());
+        foodItem.setUnits(((Spinner)findViewById(R.id.spnSearchFoodUnit)).getSelectedItem());
 
         // TODO Save FoodItem to database
 
@@ -129,9 +114,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         // Start ViewItemActivity
         Intent intent = new Intent (this, ViewItemActivity.class);
-
-
-
+        intent.putExtra(FoodItem.EXTRA, json);
         startActivity(intent);
     }
 

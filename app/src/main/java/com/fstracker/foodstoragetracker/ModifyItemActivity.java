@@ -53,7 +53,7 @@ public class ModifyItemActivity extends AppCompatActivity {
 
         // Fill the FoodUnit spinner
         Spinner spnSearchFoodUnit2 = findViewById(R.id.spnSearchFoodUnit2);
-        ArrayAdapter<Food_Unit> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Food_Unit.values());
+        ArrayAdapter<Unit> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Unit.values());
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchFoodUnit2.setAdapter(adapter2);
 
