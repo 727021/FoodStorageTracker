@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ViewItemActivity extends AppCompatActivity {
@@ -31,8 +32,8 @@ public class ViewItemActivity extends AppCompatActivity {
 
         String displayText = "Name: " + name + "\n" +
                 "Category: " + category + "\n" +
-                "Expiration Date: " + expirationDate + "\n" +
-                "Amount: " + quantity + " " + units;
+                "Expiration Date: " + new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]).format(expirationDate) + "\n" +
+                "Amount: " + quantity + " " + units.getName().toLowerCase() + ((quantity > 1) ? "s" : "");
 
         TextView textView = findViewById(R.id.tvViewItem);
         textView.setText(displayText);
@@ -46,6 +47,7 @@ public class ViewItemActivity extends AppCompatActivity {
         Log.d(TAG, "Open DeleteItemActivity");
         Intent intent = new Intent();
         intent.setClass(getApplicationContext(), DeleteItemActivity.class);
+        intent.putExtra(FoodItem.EXTRA, getIntent().getStringExtra(FoodItem.EXTRA));
         startActivity(intent);
     }
 

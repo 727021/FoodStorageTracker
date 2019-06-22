@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 public class MenuActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
+    public static final String EXTRA_TOAST = "com.fstracker.foodstoragetracker.MENU_TOAST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,12 @@ public class MenuActivity extends AppCompatActivity {
         ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory.setAdapter(adapter);
+
+        // Allow toast to be shown on the MenuActivity by other activities
+        String toast = getIntent().getStringExtra(EXTRA_TOAST);
+        if (toast != null && toast.trim() != "") {
+            Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
