@@ -28,14 +28,14 @@ public class ViewItemActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    /**
-//     * Open ModifyItemActivity.
-//     * @param v The button that was clicked.
-//     */
-//    public void modifyItemClick(View v) {
-//        Log.d(TAG, "Open DeleteItemActivity");
-//        Intent intent = new Intent();
-//        intent.setClass(getApplicationContext(), ModifyItemActivity.class);
-//        startActivity(intent);
-//    }
+    /**
+     * Open ModifyItemActivity.
+     * @param v The button that was clicked.
+     */
+    public void modifyItemClick(View v) {
+        Log.d(TAG, "Open DeleteItemActivity");
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(), ModifyItemActivity.class);
+        startActivity(intent);
+    }
 }

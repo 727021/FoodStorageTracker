@@ -20,10 +20,6 @@
                 android:value=".MenuActivity" />
         </activity>
         <activity
-            android:name=".AllItem"
-
-            android:parentActivityName=".MenuActivity" />
-        <activity
             android:name=".ViewItemActivity"
             android:label="@string/activity_ViewItem_title" />
         <activity

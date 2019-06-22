@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,19 +22,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AddItemActivity extends AppCompatActivity {
-    public static final String EXTRA_TEXT1 = "com.fstracker.foodstoragetracker.EXTRA_TEXT";
-    public static final String EXTRA_TEXT2 = "com.fstracker.foodstoragetracker.EXTRA_TEXT2";
-    public static final String EXTRA_TEXT3 = "com.fstracker.foodstoragetracker.EXTRA_TEXT3";
     private final String TAG = getClass().getSimpleName();
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    //private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-
 
         /*
          * This will create the text View for the Expiration Date
@@ -97,14 +91,16 @@ public class AddItemActivity extends AppCompatActivity {
         FoodItem foodItem = new FoodItem();
         SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
         foodItem.setName(((TextView)findViewById(R.id.editText)).getText().toString());
-        foodItem.setCategory(((Spinner)findViewById(R.id.spnSearchCategory2)).getSelectedItem());
+        Category category = (Category)((Spinner)findViewById(R.id.spnSearchCategory2)).getSelectedItem();
+        foodItem.setCategory(category);
         try {
             foodItem.setExpirationDate(sdf.parse(((TextView)findViewById(R.id.tvDate)).getText().toString()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         foodItem.setQuantity(new Double(((TextView)findViewById(R.id.editText3)).getText().toString()));
-        foodItem.setUnits(((Spinner)findViewById(R.id.spnSearchFoodUnit)).getSelectedItem());
+        Unit units = (Unit)((Spinner)findViewById(R.id.spnSearchFoodUnit)).getSelectedItem();
+        foodItem.setUnits(units);
 
         // TODO Save FoodItem to database
 
