@@ -1,10 +1,20 @@
 package com.fstracker.foodstoragetracker;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity(tableName = "foodItems")
 public class FoodItem {
+    @Ignore
     public static final transient String EXTRA = "com.fstracker.foodstoragetracker.FOOD_ITEM";
 
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
     private Date expirationDate;

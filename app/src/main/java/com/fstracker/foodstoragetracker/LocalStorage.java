@@ -1,12 +1,27 @@
 package com.fstracker.foodstoragetracker;
 
+import android.content.Context;
+
+import androidx.room.Room;
+
+import com.fstracker.foodstoragetracker.localstorage.FoodItemDatabase;
+
 import java.util.List;
 
 public class LocalStorage implements IStorageManager {
+    private static final String dbName = "fstDB";
     private List<FoodItem> allItems;
+    private FoodItemDatabase db;
 
-    public LocalStorage() {
+    public LocalStorage(Context context) {
         // Initialize local database
+        db = Room.databaseBuilder(context, FoodItemDatabase.class, dbName)
+                .allowMainThreadQueries()
+                .build();
+
+        // Do an initial query of all the items in the database
+        // (this won't happen every time we need to look at an item)
+        allItems = getAllItems();
     }
 
     @Override
