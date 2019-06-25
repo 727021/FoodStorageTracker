@@ -1,6 +1,12 @@
-package com.fstracker.foodstoragetracker;
+package com.fstracker.foodstoragetracker.localstorage;
 
 import androidx.room.TypeConverter;
+
+import com.fstracker.foodstoragetracker.Category;
+import com.fstracker.foodstoragetracker.FoodStorageApplication;
+import com.fstracker.foodstoragetracker.R;
+import com.fstracker.foodstoragetracker.Settings;
+import com.fstracker.foodstoragetracker.Unit;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

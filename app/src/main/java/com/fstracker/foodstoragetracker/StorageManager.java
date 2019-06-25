@@ -1,5 +1,7 @@
 package com.fstracker.foodstoragetracker;
 
+import com.fstracker.foodstoragetracker.localstorage.LocalStorage;
+
 public class StorageManager {
     private StorageManager() {}
 
