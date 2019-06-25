@@ -39,11 +39,11 @@ public class ExampleUnitTest {
         assertNotNull(StorageManager.getLocalStorage());
 
         FoodItem f = new FoodItem();
-        f.setName("Name");
-        f.setCategory(Category.CAT_1);
-        f.setUnits(Unit.UNIT_1);
+        f.setName("Rice");
+        f.setCategory(Category.CAT_8);
+        f.setUnits(Unit.KILOGRAM);
         f.setExpirationDate(new Date());
-        f.setQuantity(10);
+        f.setQuantity(25);
 
         int i = StorageManager.getLocalStorage().saveItem(f);
         assertEquals(1, i);
@@ -55,8 +55,8 @@ public class ExampleUnitTest {
 
         FoodItem f = new FoodItem();
         f.setName("Name");
-        f.setCategory(Category.CAT_1);
-        f.setUnits(Unit.UNIT_1);
+        f.setCategory(Category.CAT_2);
+        f.setUnits(Unit.CUP);
         f.setExpirationDate(new Date());
         f.setQuantity(10);
 

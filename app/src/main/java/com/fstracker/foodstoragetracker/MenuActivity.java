@@ -16,6 +16,8 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fstracker.foodstoragetracker.localstorage.FoodItemDao;
+import com.fstracker.foodstoragetracker.localstorage.FoodItemDatabase;
 import com.google.gson.Gson;
 
 public class MenuActivity extends AppCompatActivity {
@@ -46,6 +48,11 @@ public class MenuActivity extends AppCompatActivity {
         if (toast != null && toast.trim() != "") {
             Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
         }
+
+
+        // Test the FoodItemDao and database
+        StorageManager.getLocalStorage();
+
     }
 
     /**

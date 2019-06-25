@@ -1,7 +1,7 @@
 package com.fstracker.foodstoragetracker;
 
 public enum Unit {
-    ALL("All", ""),
+    NONE("None", ""),
     CUP("Cup", "c"),
     FLUID_OUNCE("Fluid Ounce", "fl oz"),
     GALLON("Gallon", "gal"),

@@ -16,10 +16,11 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
 public class SettingsActivity extends AppCompatActivity {
 
     private String TAG = getClass().getSimpleName();
-    private boolean cancel = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +47,14 @@ public class SettingsActivity extends AppCompatActivity {
         spnReminderUnits.setSelection(Settings.settings.reminderUnits);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (!cancel)
-            saveSettings();
-    }
-
     private void saveSettings() {
+        Settings.settings.darkMode = ((Switch)findViewById(R.id.switchDarkMode)).isChecked();
+        Settings.settings.useScanner = ((Switch)findViewById(R.id.switchScanner)).isChecked();
+        Settings.settings.dateFormat = ((Spinner)findViewById(R.id.spnDateFormat)).getSelectedItemPosition();
+        int reminderTime = Integer.parseInt(((TextView)findViewById(R.id.txtReminderTime)).getText().toString());
+        Settings.settings.reminderTime = (reminderTime <= 0) ? Settings.settings.reminderTime : reminderTime;
+        Settings.settings.reminderUnits = ((Spinner)findViewById(R.id.spnReminderUnits)).getSelectedItemPosition();
+
         String json = new Gson().toJson(Settings.settings);
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
         editor.putString(Settings.SETTINGS_KEY, json);
@@ -63,13 +64,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void saveClick(View v) {
         saveSettings();
-        Intent intent = new Intent(getApplicationContext(), getParent().getClass());
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        intent.putExtra(MenuActivity.EXTRA_TOAST, "Saved settings");
         startActivity(intent);
     }
 
     public void cancelClick(View v) {
-        cancel = true;
-        Intent intent = new Intent(getApplicationContext(), getParent().getClass());
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         startActivity(intent);
     }
 }

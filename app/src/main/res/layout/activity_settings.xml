@@ -107,6 +107,7 @@
         android:id="@+id/btnSettingsSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="saveClick"
         android:text="@string/button_save_text"
         app:layout_constraintBaseline_toBaselineOf="@+id/btnSettingsCancel"
         app:layout_constraintEnd_toEndOf="parent"

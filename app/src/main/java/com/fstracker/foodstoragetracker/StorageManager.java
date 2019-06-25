@@ -7,9 +7,8 @@ public class StorageManager {
 //    private static CloudStorage cloudStorage;
 
     public static LocalStorage getLocalStorage() {
-        // TODO This needs to pass getApplicationContext() to LocalStorage
-        //if (localStorage == null)
-            //localStorage = new LocalStorage();
+        if (localStorage == null)
+            localStorage = new LocalStorage();
         return localStorage;
     }
 /*

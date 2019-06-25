@@ -36,12 +36,6 @@ public interface FoodItemDao {
     List<FoodItem> getItemsByName(String name);
 
     @Query("SELECT * FROM foodItems WHERE category = :category")
-    List<FoodItem> getItemsByCategory(Category category);
-
-    @RawQuery
-    FoodItem queryItem(String query);
-
-    @RawQuery
-    List<FoodItem> queryItems(String query);
+    List<FoodItem> getItemsByCategory(String category);
 
 }
