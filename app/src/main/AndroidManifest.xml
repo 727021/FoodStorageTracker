@@ -22,7 +22,12 @@
         </activity>
         <activity
             android:name=".ViewItemActivity"
-            android:label="@string/activity_ViewItem_title" />
+            android:label="@string/activity_ViewItem_title"
+            android:parentActivityName=".MenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
         <activity
             android:name=".ViewListActivity"
             android:label="@string/activity_ViewList_title"

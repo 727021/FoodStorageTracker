@@ -106,7 +106,6 @@ public class AddItemActivity extends AppCompatActivity {
 
         // TODO Save FoodItem to database
 
-
         // Get JSON string
         String json = new Gson().toJson(foodItem);
 

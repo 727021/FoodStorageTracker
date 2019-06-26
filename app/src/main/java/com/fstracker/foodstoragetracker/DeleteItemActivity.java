@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+/**
+ * This activity prompts the user for confirmation before deleting a {@link FoodItem}.
+ * In the future it may be replaced with a dialog in {@link ViewItemActivity}.
+ */
 public class DeleteItemActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
@@ -21,31 +25,40 @@ public class DeleteItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_item);
 
+        // Store the json from ViewItemActivity and deserialize it
         json = getIntent().getStringExtra(FoodItem.EXTRA);
         foodItem = new Gson().fromJson(json, FoodItem.class);
-        String text = "No food item selected.";
-        if (foodItem != null)
-                text =  foodItem.getQuantity() + " " + foodItem.getUnits().getName().toLowerCase() + ((foodItem.getQuantity() > 1) ? "s" : "") + " of " + foodItem.getName();
-        ((TextView)findViewById(R.id.txtFoodItem)).setText(text);
+        // Show the user what they're deleting
+        ((TextView)findViewById(R.id.txtFoodItem)).setText((foodItem == null) ? "No food item selected." : foodItem.toString());
     }
 
+    /**
+     * Don't delete the FoodItem and reopen {@link ViewItemActivity}.
+     * @param v The button that was clicked.
+     */
     public void cancelClick(View v) {
+        Log.d(TAG, "Delete item cancelled");
         Intent intent = new Intent(getApplicationContext(), ViewItemActivity.class);
+        // Give ViewItemActivity the same json it sent us
         intent.putExtra(FoodItem.EXTRA, json);
         startActivity(intent);
-        Log.d(TAG, "Delete item cancelled");
     }
 
+    /**
+     * Delete the FoodItem and display a toast in {@link MenuActivity}.
+     * @param v The button that was clicked.
+     */
     public void deleteClick(View v) {
         Log.d(TAG, "Delete item confirmed");
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
 
+        // Don't try to delete null
         if (foodItem != null) {
-            // TODO Actually delete the item
+            // Actually delete the item
+            StorageManager.getLocalStorage().deleteItem(foodItem);
 
             // Display a toast in MenuActivity
-            String toast = "Deleted " + foodItem.getQuantity() + " " + foodItem.getUnits().getName().toLowerCase() + ((foodItem.getQuantity() > 1) ? "s" : "") + " of " + foodItem.getName();
-            intent.putExtra(MenuActivity.EXTRA_TOAST, toast);
+            intent.putExtra(MenuActivity.EXTRA_TOAST, String.format("Deleted %s", foodItem));
         }
 
         // Go back to the MenuActivity

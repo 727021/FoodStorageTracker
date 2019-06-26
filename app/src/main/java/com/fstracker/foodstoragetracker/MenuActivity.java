@@ -48,11 +48,6 @@ public class MenuActivity extends AppCompatActivity {
         if (toast != null && toast.trim() != "") {
             Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
         }
-
-
-        // Test the FoodItemDao and database
-        StorageManager.getLocalStorage();
-
     }
 
     /**
@@ -61,9 +56,7 @@ public class MenuActivity extends AppCompatActivity {
      */
     public void addItemClick(View v) {
         Log.d(TAG, "Open AddItemActivity");
-        Intent intent = new Intent();
-        intent.setClass(getApplicationContext(), AddItemActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(getApplicationContext(), AddItemActivity.class));
     }
 
     /**
@@ -96,7 +89,6 @@ public class MenuActivity extends AppCompatActivity {
      */
     public void settingsClick(View v) {
         Log.d(TAG, "Open SettingsActivity");
-        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
     }
 }

@@ -73,4 +73,10 @@ public class FoodItem {
     public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("%.1f %s%s of %s", quantity, units.getName().toLowerCase(), (quantity > 1) ? "s" : "", name);
+    }
 }

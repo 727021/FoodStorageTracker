@@ -1,10 +1,14 @@
 package com.fstracker.foodstoragetracker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -13,10 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -73,4 +80,33 @@ public class SettingsActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         startActivity(intent);
     }
+
+    public void clearClick(View v) {
+        new AlertDialog.Builder(this)
+                .setTitle("Clear Database?")
+                .setMessage("This will permanently erase ALL of your food storage data. Are you sure you want to continue?")
+                .setPositiveButton("Clear Data", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        List<FoodItem> all = StorageManager.getLocalStorage().getAllItems();
+                        StorageManager.getLocalStorage().deleteAllItems(all);
+                        Toast.makeText(getApplicationContext(), "Database cleared", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                }).create().show();
+    }
+
+    public void reportClick(View v) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://bugbucket.io/issues/727021/foodstoragetracker")));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getApplicationContext(), String.format("No web browser found.%nPlease install one and try again."), Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
