@@ -1,5 +1,8 @@
 package com.fstracker.foodstoragetracker;
 
+/**
+ * An enumeration of categories that FoodItems can belong to.
+ */
 public enum Category {
     // Temporary categories (these will change)
     ALL("All"),

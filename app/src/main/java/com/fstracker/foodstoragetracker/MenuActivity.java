@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 public class MenuActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
+    // Used to display a Toast in MenuActivity from another activity.
     public static final String EXTRA_TOAST = "com.fstracker.foodstoragetracker.MENU_TOAST";
 
     @Override
@@ -45,7 +46,7 @@ public class MenuActivity extends AppCompatActivity {
 
         // Allow toast to be shown on the MenuActivity by other activities
         String toast = getIntent().getStringExtra(EXTRA_TOAST);
-        if (toast != null && toast.trim() != "") {
+        if (toast != null && !toast.trim().equals("")) {
             Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
         }
     }

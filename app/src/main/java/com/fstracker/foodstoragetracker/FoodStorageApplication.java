@@ -2,6 +2,9 @@ package com.fstracker.foodstoragetracker;
 
 import android.app.Application;
 
+/**
+ * This class exists so we can get an application context from outside an activity.
+ */
 public class FoodStorageApplication extends Application {
     private static FoodStorageApplication instance;
 

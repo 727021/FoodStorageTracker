@@ -3,13 +3,13 @@ package com.fstracker.foodstoragetracker;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
 @Entity(tableName = "foodItems")
 public class FoodItem {
+    // Used for passing json serialized FoodItem objects between activities
     @Ignore
     public static final transient String EXTRA = "com.fstracker.foodstoragetracker.FOOD_ITEM";
 

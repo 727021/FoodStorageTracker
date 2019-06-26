@@ -54,6 +54,9 @@ public class SettingsActivity extends AppCompatActivity {
         spnReminderUnits.setSelection(Settings.settings.reminderUnits);
     }
 
+    /**
+     * Update {@link Settings}.settings and write to SharedPreferences
+     */
     private void saveSettings() {
         Settings.settings.darkMode = ((Switch)findViewById(R.id.switchDarkMode)).isChecked();
         Settings.settings.useScanner = ((Switch)findViewById(R.id.switchScanner)).isChecked();
@@ -69,6 +72,10 @@ public class SettingsActivity extends AppCompatActivity {
         Log.d(TAG, "Saved settings: " + json);
     }
 
+    /**
+     * Save {@link Settings} and display a toast in {@link MenuActivity}.
+     * @param v The button that was clicked.
+     */
     public void saveClick(View v) {
         saveSettings();
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
@@ -76,11 +83,19 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Go back to {@link MenuActivity}.
+     * @param v The button that was clicked.
+     */
     public void cancelClick(View v) {
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Delete all food storage data after confirmation from the user.
+     * @param v The button that was clicked.
+     */
     public void clearClick(View v) {
         new AlertDialog.Builder(this)
                 .setTitle("Clear Database?")
@@ -101,6 +116,10 @@ public class SettingsActivity extends AppCompatActivity {
                 }).create().show();
     }
 
+    /**
+     * Open a web browser to the issue report page for the app
+     * @param v The button that was clicked.
+     */
     public void reportClick(View v) {
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://bugbucket.io/issues/727021/foodstoragetracker")));

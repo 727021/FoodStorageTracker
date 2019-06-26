@@ -12,6 +12,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * A class containing type converters for use by a Room database
+ */
 public class Converters {
 
     @TypeConverter
@@ -54,6 +57,6 @@ public class Converters {
             if (u.getName().equals(unit))
                 return u;
         }
-        return Unit.NONE;
+        return Unit.COUNT;
     }
 }

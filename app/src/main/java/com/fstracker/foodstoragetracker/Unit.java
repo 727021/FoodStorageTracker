@@ -1,7 +1,10 @@
 package com.fstracker.foodstoragetracker;
 
+/**
+ * An enumeration of units that FoodItems can be measured by.
+ */
 public enum Unit {
-    NONE("None", ""),
+    COUNT("Count", "ct"),
     CUP("Cup", "c"),
     FLUID_OUNCE("Fluid Ounce", "fl oz"),
     GALLON("Gallon", "gal"),

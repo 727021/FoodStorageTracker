@@ -15,15 +15,21 @@ import java.util.List;
  * Implementation of a local food storage database.
  * <p>
  * The only instance of this class should be in {@link com.fstracker.foodstoragetracker.StorageManager}.
- * Use StorageManager.getLocalStorage() to access the local database.
+ * Use <pre>StorageManager.getLocalStorage()</pre> to access the local database.
  */
 public class LocalStorage implements IStorageManager {
     private static final String TAG = LocalStorage.class.getSimpleName();
     private static final String dbName = "fstDB";
+    // Keep a list of all FoodItem objects in memory so we
+    // don't have to get them from the database every time.
     private List<FoodItem> allItems;
     private FoodItemDatabase db;
+
+    // Keep allItems up to date
     private Date lastUpdate;
+    // Minimum time in seconds between updates
     private final long updateInterval = 20;
+    // allItems will only be updated when this is false
     private boolean upToDate;
 
     public LocalStorage() {

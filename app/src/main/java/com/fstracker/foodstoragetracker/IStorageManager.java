@@ -2,6 +2,9 @@ package com.fstracker.foodstoragetracker;
 
 import java.util.List;
 
+/**
+ * An interface defining methods that must be implemented by our storage manager classes.
+ */
 public interface IStorageManager {
 
     /**

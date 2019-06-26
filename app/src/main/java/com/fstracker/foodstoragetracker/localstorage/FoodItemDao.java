@@ -5,13 +5,14 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.RawQuery;
 
-import com.fstracker.foodstoragetracker.Category;
 import com.fstracker.foodstoragetracker.FoodItem;
 
 import java.util.List;
 
+/**
+ * The interface used by {@link LocalStorage} to interact with the {@link FoodItemDatabase}.
+ */
 @Dao
 public interface FoodItemDao {
     @Query("SELECT * FROM foodItems")
