@@ -1,5 +1,7 @@
 package com.fstracker.foodstoragetracker.localstorage;
 
+import android.util.Log;
+
 import androidx.room.Room;
 
 import com.fstracker.foodstoragetracker.Category;
@@ -82,6 +84,7 @@ public class LocalStorage implements IStorageManager {
             if (ids[i] == 0)
                 return i;
         }
+        Log.i(TAG, String.format("Saved %d items", i));
         return i;
     }
 
@@ -89,18 +92,21 @@ public class LocalStorage implements IStorageManager {
     public int saveItem(FoodItem item) {
         long id = db.getDao().saveItem(item);
         upToDate = false;
+        Log.i(TAG, String.format("Saved %s", item.toString()));
         return (id > 0) ? 1 : 0;
     }
 
     @Override
     public int deleteAllItems(List<FoodItem> items) {
         upToDate = false;
+        Log.i(TAG, String.format("Deleting %d items", items.size()));
         return db.getDao().deleteAllItems(items);
     }
 
     @Override
     public int deleteItem(FoodItem item) {
         upToDate = false;
+        Log.i(TAG, String.format("Deleting %s", item.toString()));
         return db.getDao().deleteItem(item);
     }
 

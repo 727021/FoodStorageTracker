@@ -8,6 +8,9 @@ import android.widget.Spinner;
 
 public class ViewListActivity extends AppCompatActivity {
 
+    public static final String EXTRA_SEARCH = "com.fstracker.foodstoragetracker.SEARCH";
+    public static final String EXTRA_CATEGORY = "com.fstracker.foodstoragetracker.CATEGORY";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
