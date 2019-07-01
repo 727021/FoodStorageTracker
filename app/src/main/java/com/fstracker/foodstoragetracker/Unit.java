@@ -5,17 +5,17 @@ package com.fstracker.foodstoragetracker;
  */
 public enum Unit {
     COUNT("Count", "ct"),
-    CUP("Cup", "c"),
     FLUID_OUNCE("Fluid Ounce", "fl oz"),
+    CUP("Cup", "c"),
+    QUART("Quart", "qt"),
+    PINT("Pint", "pt"),
     GALLON("Gallon", "gal"),
+    MILLILITER("Milliliter", "mL"),
+    LITER("Liter", "L"),
     GRAM("Gram", "g"),
     KILOGRAM("Kilogram", "Kg"),
-    LITER("Liter", "L"),
-    MILLIGRAM("Milligram", "mg"),
     OUNCE("Ounce", "oz"),
-    PINT("Pint", "pt"),
-    POUND("Pound", "lbs"),
-    QUART("Quart", "qt");
+    POUND("Pound", "lbs");
 
     private String name;
     private String symbol;
@@ -25,9 +25,7 @@ public enum Unit {
         this.symbol = symbol;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public String getSymbol() {
         return symbol;
@@ -35,7 +33,6 @@ public enum Unit {
 
     @Override
     public String toString() {
-        // This can be changed once we know how we want units displayed
         return String.format("%s (%s)", name, symbol);
     }
 }
