@@ -28,9 +28,9 @@ public class AddItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    ///////
+
     EditText NameEditText,DescriptionText,CountText;
-////
+
     TextView textViewName;
 
     Button RegistrationButton;
@@ -96,7 +96,6 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                /////
                 final String Name= NameEditText.getText().toString();
                 final String word= CountText.getText().toString();
                 final String Count= DescriptionText.getText().toString();
