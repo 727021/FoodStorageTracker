@@ -90,16 +90,7 @@ public class AddItemActivity extends AppCompatActivity {
 
             }
         };
-        ///
-        ///
 
-
-
-        ///
-
-        //
-
-        //
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,12 +150,9 @@ public class AddItemActivity extends AppCompatActivity {
         Unit units = (Unit)((Spinner)findViewById(R.id.spnSearchFoodUnit)).getSelectedItem();
         foodItem.setUnits(units);
 
-        // TODO Save FoodItem to database
+        // TODO Save FoodItem to database *done*
         Log.d(TAG, "food item contain: " + foodItem);
         StorageManager.getLocalStorage().saveItem(foodItem);
-
-
-
 
 
         // Get JSON string
