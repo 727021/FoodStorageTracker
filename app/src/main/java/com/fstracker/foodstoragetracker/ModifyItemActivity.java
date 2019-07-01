@@ -13,7 +13,9 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ModifyItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -27,7 +29,7 @@ public class ModifyItemActivity extends AppCompatActivity {
                 /*
          * This will create the text View for the Expiration Date
          */
-        mDisplayDate2 = (TextView) findViewById(R.id.tvDate2);
+        mDisplayDate2 = findViewById(R.id.tvDate2);
         mDisplayDate2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +49,12 @@ public class ModifyItemActivity extends AppCompatActivity {
         });
         // Fill the category spinner
         Spinner spnSearchCategory3 = findViewById(R.id.spnSearchCategory3);
-        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
+        List<Category> values = new ArrayList<>();
+        for (Category cat : Category.values()) {
+            if (cat != Category.ALL) // ALL shouldn't be a choice when adding an item
+                values.add(cat);
+        }
+        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory3.setAdapter(adapter);
 

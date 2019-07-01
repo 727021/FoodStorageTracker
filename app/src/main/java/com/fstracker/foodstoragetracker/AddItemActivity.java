@@ -21,7 +21,9 @@ import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -68,7 +70,12 @@ public class AddItemActivity extends AppCompatActivity {
 
         // Fill the category spinner
         Spinner spnSearchCategory2 = findViewById(R.id.spnSearchCategory2);
-        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
+        List<Category> values = new ArrayList<>();
+        for (Category cat : Category.values()) {
+            if (cat != Category.ALL) // ALL shouldn't be a choice when adding an item
+                values.add(cat);
+        }
+        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory2.setAdapter(adapter);
 
@@ -142,7 +149,7 @@ public class AddItemActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        foodItem.setQuantity(new Double(((TextView)findViewById(R.id.editText3)).getText().toString()));
+        foodItem.setQuantity(Double.valueOf(((TextView)findViewById(R.id.editText3)).getText().toString()));
         Unit units = (Unit)((Spinner)findViewById(R.id.spnSearchFoodUnit)).getSelectedItem();
         foodItem.setUnits(units);
 
