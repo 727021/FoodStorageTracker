@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,16 +22,27 @@ import com.google.gson.Gson;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    ///////
+    EditText NameEditText,DescriptionText,CountText;
+////
+    TextView textViewName;
 
+    Button RegistrationButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        NameEditText=(EditText)findViewById(R.id.editText);
+        CountText=(EditText)findViewById(R.id.editText5);
+        DescriptionText=(EditText)findViewById(R.id.editText3);
+        textViewName=(TextView)findViewById(R.id.tvDate);
 
         /*
          * This will create the text View for the Expiration Date
@@ -77,11 +90,53 @@ public class AddItemActivity extends AppCompatActivity {
 
             }
         };
+        ///
+        ///
+
+
+
+        ///
+
+        //
+
+        //
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openAllItemActivity();
+
+                /////
+                final String Name= NameEditText.getText().toString();
+                final String word= CountText.getText().toString();
+                final String Count= DescriptionText.getText().toString();
+                final String textv = textViewName.getText().toString();
+                if(Name.length()==0) {
+                    NameEditText.requestFocus();
+                    NameEditText.setError("Field Cannot Be Empty");
+                }
+                else if(textv.length() ==0) {
+                    textViewName.requestFocus();
+                    textViewName.setError("Field Cannot Be Empty");
+                }
+                else if(word.length() ==0) {
+                    CountText.requestFocus();
+                    CountText.setError("Field Cannot Be Empty");
+                }
+                else if(Count.length() ==0) {
+                    DescriptionText.requestFocus();
+                    DescriptionText.setError("Field Cannot Be Empty");
+                }
+
+
+                // DO WE WANT THE FOOD NAME WITHOUT NUMBERS?
+                    /*else if(!Name.matches("[a-zA-Z]+"))
+                {
+                    NameEditText.requestFocus();
+                    NameEditText.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                }*/
+                else {
+                    openAllItemActivity();
+                }
             }
         });
     }
@@ -105,6 +160,12 @@ public class AddItemActivity extends AppCompatActivity {
         foodItem.setUnits(units);
 
         // TODO Save FoodItem to database
+        Log.d(TAG, "food item contain: " + foodItem);
+        StorageManager.getLocalStorage().saveItem(foodItem);
+
+
+
+
 
         // Get JSON string
         String json = new Gson().toJson(foodItem);
@@ -113,6 +174,8 @@ public class AddItemActivity extends AppCompatActivity {
         Intent intent = new Intent (this, ViewItemActivity.class);
         intent.putExtra(FoodItem.EXTRA, json);
         startActivity(intent);
+        Log.d(TAG, "Saved Items: " + json);
+        Toast.makeText(getApplicationContext(), "Food item stored", Toast.LENGTH_LONG).show();
     }
 
 }
