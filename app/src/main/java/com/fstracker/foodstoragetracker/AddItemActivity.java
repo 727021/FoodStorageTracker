@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,25 +30,26 @@ public class AddItemActivity extends AppCompatActivity {
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    EditText NameEditText,DescriptionText,CountText;
-
+    EditText nameEditText;
+    EditText descriptionText;
+    EditText countText;
     TextView textViewName;
-
     Button RegistrationButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-        NameEditText=(EditText)findViewById(R.id.editText);
-        CountText=(EditText)findViewById(R.id.editText5);
-        DescriptionText=(EditText)findViewById(R.id.editText3);
-        textViewName=(TextView)findViewById(R.id.tvDate);
+        nameEditText = findViewById(R.id.editText);
+        countText = findViewById(R.id.editText5);
+        descriptionText = findViewById(R.id.editText3);
+        textViewName = findViewById(R.id.tvDate);
 
         /*
          * This will create the text View for the Expiration Date
          */
-        mDisplayDate = (TextView) findViewById(R.id.tvDate);
+        mDisplayDate = findViewById(R.id.tvDate);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +70,12 @@ public class AddItemActivity extends AppCompatActivity {
 
         // Fill the category spinner
         Spinner spnSearchCategory2 = findViewById(R.id.spnSearchCategory2);
-        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
+        List<Category> values = new ArrayList<>();
+        for (Category cat : Category.values()) {
+            if (cat != Category.ALL) // ALL shouldn't be a choice when adding an item
+                values.add(cat);
+        }
+        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory2.setAdapter(adapter);
 
@@ -82,7 +89,7 @@ public class AddItemActivity extends AppCompatActivity {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                month = month +1 ;
+                month = month + 1 ;
                 Log.d(TAG, "onDateSet: mm/dd/yyy " + month + "/" + dayOfMonth + "/" + year);
                 //the variable date has the date.
                 String date = month + "/" + dayOfMonth + "/" + year;
@@ -91,38 +98,37 @@ public class AddItemActivity extends AppCompatActivity {
             }
         };
 
-        Button button = (Button) findViewById(R.id.button);
+        Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final String Name= NameEditText.getText().toString();
-                final String word= CountText.getText().toString();
-                final String Count= DescriptionText.getText().toString();
+                final String name = nameEditText.getText().toString();
+                final String word = countText.getText().toString();
+                final String count = descriptionText.getText().toString();
                 final String textv = textViewName.getText().toString();
-                if(Name.length()==0) {
-                    NameEditText.requestFocus();
-                    NameEditText.setError("Field Cannot Be Empty");
+                if(name.length() == 0) {
+                    nameEditText.requestFocus();
+                    nameEditText.setError("Field Cannot Be Empty");
                 }
-                else if(textv.length() ==0) {
+                else if(textv.length() == 0) {
                     textViewName.requestFocus();
                     textViewName.setError("Field Cannot Be Empty");
                 }
-                else if(word.length() ==0) {
-                    CountText.requestFocus();
-                    CountText.setError("Field Cannot Be Empty");
+                else if(word.length() == 0) {
+                    countText.requestFocus();
+                    countText.setError("Field Cannot Be Empty");
                 }
-                else if(Count.length() ==0) {
-                    DescriptionText.requestFocus();
-                    DescriptionText.setError("Field Cannot Be Empty");
+                else if(count.length() == 0) {
+                    descriptionText.requestFocus();
+                    descriptionText.setError("Field Cannot Be Empty");
                 }
 
 
                 // DO WE WANT THE FOOD NAME WITHOUT NUMBERS?
                     /*else if(!Name.matches("[a-zA-Z]+"))
                 {
-                    NameEditText.requestFocus();
-                    NameEditText.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                    nameEditText.requestFocus();
+                    nameEditText.setError("ENTER ONLY ALPHABETICAL CHARACTER");
                 }*/
                 else {
                     openAllItemActivity();
@@ -132,8 +138,6 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     public void openAllItemActivity() {
-        // TODO Validate input
-
         // Create a FoodItem
         FoodItem foodItem = new FoodItem();
         SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
@@ -145,11 +149,11 @@ public class AddItemActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        foodItem.setQuantity(new Double(((TextView)findViewById(R.id.editText3)).getText().toString()));
+        foodItem.setQuantity(Double.valueOf(((TextView)findViewById(R.id.editText3)).getText().toString()));
         Unit units = (Unit)((Spinner)findViewById(R.id.spnSearchFoodUnit)).getSelectedItem();
         foodItem.setUnits(units);
 
-        // TODO Save FoodItem to database *done*
+        // Save FoodItem to database
         Log.d(TAG, "food item contain: " + foodItem);
         StorageManager.getLocalStorage().saveItem(foodItem);
 
@@ -158,11 +162,10 @@ public class AddItemActivity extends AppCompatActivity {
         String json = new Gson().toJson(foodItem);
 
         // Start ViewItemActivity
-        Intent intent = new Intent (this, ViewItemActivity.class);
+        Intent intent = new Intent(this, ViewItemActivity.class);
         intent.putExtra(FoodItem.EXTRA, json);
         startActivity(intent);
         Log.d(TAG, "Saved Items: " + json);
         Toast.makeText(getApplicationContext(), "Food item stored", Toast.LENGTH_LONG).show();
     }
-
 }
