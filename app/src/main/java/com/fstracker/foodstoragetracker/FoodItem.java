@@ -79,4 +79,6 @@ public class FoodItem {
     public String toString() {
         return String.format("%.1f %s%s of %s", quantity, units.getName().toLowerCase(), (quantity > 1 && units != Unit.COUNT) ? "s" : "", name);
     }
+
+
 }
