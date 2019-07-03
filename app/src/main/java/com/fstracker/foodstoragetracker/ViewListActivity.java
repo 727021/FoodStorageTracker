@@ -44,7 +44,7 @@ public class ViewListActivity extends AppCompatActivity {
                 //A callback with the position selected
                 Category selected = Category.values()[position];
                 //Here we should update the  list by /StorageManager.getLocalStorage().getItemsByCategory()
-                List<FoodItem> updatedList =  StorageManager.getLocalStorage().getItemsByCategory(selected);
+                List<FoodItem> updatedList =  (selected == Category.ALL) ? StorageManager.getLocalStorage().getAllItems() : StorageManager.getLocalStorage().getItemsByCategory(selected);
                 mAdapter.updateList(updatedList);
                 mAdapter.notifyDataSetChanged();
             }
