@@ -7,6 +7,9 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
+/**
+ * A class representing an item in someone's food storage.
+ */
 @Entity(tableName = "foodItems")
 public class FoodItem {
     // Used for passing json serialized FoodItem objects between activities

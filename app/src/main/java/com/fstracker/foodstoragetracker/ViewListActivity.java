@@ -94,7 +94,7 @@ public class ViewListActivity extends AppCompatActivity {
         public void onBindViewHolder(MyViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.textView.setText(mDataset.get(position).getName());
+            holder.textView.setText(mDataset.get(position).toString());
 
         }
 

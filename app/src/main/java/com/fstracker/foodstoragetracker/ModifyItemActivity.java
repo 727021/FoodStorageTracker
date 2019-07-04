@@ -77,6 +77,9 @@ public class ModifyItemActivity extends AppCompatActivity {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchFoodUnit2.setAdapter(adapter2);
 
+        final FoodItem foodItem = new Gson().fromJson(getIntent().getStringExtra(FoodItem.EXTRA), FoodItem.class);
+        // TODO Fill views with FoodItem information
+
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
@@ -125,7 +128,12 @@ public class ModifyItemActivity extends AppCompatActivity {
                     NameEditText.setError("ENTER ONLY ALPHABETICAL CHARACTER");
                 }*/
                 else {
-                  //  openAllItemActivity();
+                    // TODO Update FoodItem with new data
+
+                    StorageManager.getLocalStorage().saveItem(foodItem);
+                    Intent intent = new Intent(getApplicationContext(), ViewItemActivity.class);
+                    intent.putExtra(FoodItem.EXTRA, new Gson().toJson(foodItem));
+                    startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Food item Modify", Toast.LENGTH_LONG).show();
                 }
             }

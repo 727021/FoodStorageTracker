@@ -31,10 +31,8 @@ public class AddItemActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     EditText nameEditText;
-    EditText descriptionText;
     EditText countText;
     TextView textViewName;
-    Button RegistrationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +40,7 @@ public class AddItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_item);
 
         nameEditText = findViewById(R.id.editText);
-        countText = findViewById(R.id.editText5);
-        descriptionText = findViewById(R.id.editText3);
+        countText = findViewById(R.id.editText3);
         textViewName = findViewById(R.id.tvDate);
 
         /*
@@ -103,8 +100,7 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String name = nameEditText.getText().toString();
-                final String word = countText.getText().toString();
-                final String count = descriptionText.getText().toString();
+                final String count = countText.getText().toString();
                 final String textv = textViewName.getText().toString();
                 if(name.length() == 0) {
                     nameEditText.requestFocus();
@@ -114,13 +110,9 @@ public class AddItemActivity extends AppCompatActivity {
                     textViewName.requestFocus();
                     textViewName.setError("Field Cannot Be Empty");
                 }
-                else if(word.length() == 0) {
+                else if(count.length() == 0) {
                     countText.requestFocus();
                     countText.setError("Field Cannot Be Empty");
-                }
-                else if(count.length() == 0) {
-                    descriptionText.requestFocus();
-                    descriptionText.setError("Field Cannot Be Empty");
                 }
 
 
