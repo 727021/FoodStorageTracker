@@ -40,7 +40,7 @@ public class ModifyItemActivity extends AppCompatActivity {
 
         NameEditText=(EditText)findViewById(R.id.editText4);
         CountText=(EditText)findViewById(R.id.editText2);
-        DescriptionText=(EditText)findViewById(R.id.editText6);
+
         textViewName=(TextView)findViewById(R.id.tvDate2);
 
          /*
