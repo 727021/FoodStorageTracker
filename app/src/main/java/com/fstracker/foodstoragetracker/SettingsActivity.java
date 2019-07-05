@@ -29,28 +29,42 @@ public class SettingsActivity extends AppCompatActivity {
 
     private String TAG = getClass().getSimpleName();
 
+    private Spinner spnDateFormat;
+    private Spinner spnReminderUnits;
+    private Switch switchDarkMode;
+    private Switch switchUseScanner;
+    private TextView txtReminderTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        spnDateFormat = findViewById(R.id.spnDateFormat);
+        spnReminderUnits = findViewById(R.id.spnReminderUnits);
+        switchDarkMode = findViewById(R.id.switchDarkMode);
+        switchUseScanner = findViewById(R.id.switchScanner);
+        txtReminderTime = findViewById(R.id.txtReminderTime);
+
+        // TODO Remove this once settings are fully implemented
+        spnDateFormat.setEnabled(false);
+        spnReminderUnits.setEnabled(false);
+
         // Fill date format spinner
-        Spinner spnDateFormat = findViewById(R.id.spnDateFormat);
         ArrayAdapter<String> dfAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.date_formats));
         dfAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnDateFormat.setAdapter(dfAdapter);
 
         // Fill time units spinner
-        Spinner spnReminderUnits = findViewById(R.id.spnReminderUnits);
         ArrayAdapter<String> ruAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.notification_time_units));
         ruAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnReminderUnits.setAdapter(ruAdapter);
 
         // Fill views with the current app settings
-        ((Switch)findViewById(R.id.switchDarkMode)).setChecked(Settings.settings.darkMode);
-        ((Switch)findViewById(R.id.switchScanner)).setChecked(Settings.settings.useScanner);
+        switchDarkMode.setChecked(Settings.settings.darkMode);
+        switchUseScanner.setChecked(Settings.settings.useScanner);
         spnDateFormat.setSelection(Settings.settings.dateFormat);
-        ((TextView)findViewById(R.id.txtReminderTime)).setText(String.valueOf(Settings.settings.reminderTime));
+        txtReminderTime.setText(String.valueOf(Settings.settings.reminderTime));
         spnReminderUnits.setSelection(Settings.settings.reminderUnits);
     }
 
@@ -90,6 +104,14 @@ public class SettingsActivity extends AppCompatActivity {
     public void cancelClick(View v) {
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         startActivity(intent);
+    }
+
+    public void resetClick(View v) {
+        switchDarkMode.setChecked(Settings.defaultSettings.darkMode);
+        switchUseScanner.setChecked(Settings.defaultSettings.useScanner);
+        spnDateFormat.setSelection(Settings.defaultSettings.dateFormat);
+        txtReminderTime.setText(String.valueOf(Settings.defaultSettings.reminderTime));
+        spnReminderUnits.setSelection(Settings.defaultSettings.reminderUnits);
     }
 
     /**

@@ -37,6 +37,9 @@ public class MenuActivity extends AppCompatActivity {
             String json = prefs.getString(Settings.SETTINGS_KEY, getString(R.string.default_settings_json));
             Settings.settings = new Gson().fromJson(json, Settings.class);
         }
+        if (Settings.defaultSettings == null) {
+            Settings.defaultSettings = new Gson().fromJson(getString(R.string.default_settings_json), Settings.class);
+        }
 
         // Fill the category spinner
         Spinner spnSearchCategory = findViewById(R.id.spnSearchCategory);

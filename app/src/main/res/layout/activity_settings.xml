@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:enabled="false"
         android:text="@string/darkmode_text"
         app:layout_constraintEnd_toStartOf="@+id/switchScanner"
         app:layout_constraintHorizontal_bias="0.5"
@@ -21,6 +22,7 @@
         android:id="@+id/switchScanner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:text="@string/usescanner_text"
         app:layout_constraintBaseline_toBaselineOf="@+id/switchDarkMode"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,6 +70,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:ems="10"
+        android:enabled="false"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
@@ -96,13 +99,6 @@
         app:layout_constraintStart_toEndOf="@+id/txtReminderTime"
         app:layout_constraintTop_toTopOf="@+id/txtReminderTime" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="583dp" />
-
     <Button
         android:id="@+id/btnSettingsSave"
         android:layout_width="wrap_content"
@@ -112,7 +108,7 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/btnSettingsCancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnSettingsCancel" />
+        app:layout_constraintStart_toEndOf="@+id/btnResetSettings" />
 
     <Button
         android:id="@+id/btnSettingsCancel"
@@ -121,7 +117,7 @@
         android:layout_marginTop="32dp"
         android:onClick="cancelClick"
         android:text="@string/button_cancel_text"
-        app:layout_constraintEnd_toStartOf="@+id/btnSettingsSave"
+        app:layout_constraintEnd_toStartOf="@+id/btnResetSettings"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
@@ -157,4 +153,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/btnResetSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="resetClick"
+        android:text="@string/button_reset_settings_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnSettingsCancel"
+        app:layout_constraintEnd_toStartOf="@+id/btnSettingsSave"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnSettingsCancel" />
 </androidx.constraintlayout.widget.ConstraintLayout>

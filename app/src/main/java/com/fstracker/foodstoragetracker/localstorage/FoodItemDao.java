@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Dao
 public interface FoodItemDao {
-    @Query("SELECT * FROM foodItems")
+    @Query("SELECT * FROM foodItems ORDER BY name, expirationDate")
     List<FoodItem> getAllItems();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -33,10 +33,10 @@ public interface FoodItemDao {
     @Query("SELECT * FROM foodItems WHERE id = :id LIMIT 1")
     FoodItem getItemById(int id);
 
-    @Query("SELECT * FROM foodItems WHERE name = :name")
+    @Query("SELECT * FROM foodItems WHERE name = :name ORDER BY expirationDate")
     List<FoodItem> getItemsByName(String name);
 
-    @Query("SELECT * FROM foodItems WHERE category = :category")
+    @Query("SELECT * FROM foodItems WHERE category = :category ORDER BY name, expirationDate")
     List<FoodItem> getItemsByCategory(String category);
 
 }
