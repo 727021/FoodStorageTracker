@@ -25,6 +25,7 @@ import java.util.Calendar;
 
 public class ModifyItemActivity extends AppCompatActivity {
     EditText NameEditText,DescriptionText,CountText;
+    private FoodItem foodItem;
 
     TextView textViewName;
 
@@ -77,8 +78,15 @@ public class ModifyItemActivity extends AppCompatActivity {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchFoodUnit2.setAdapter(adapter2);
 
-        final FoodItem foodItem = new Gson().fromJson(getIntent().getStringExtra(FoodItem.EXTRA), FoodItem.class);
+        foodItem = new Gson().fromJson(getIntent().getStringExtra(FoodItem.EXTRA), FoodItem.class);
         // TODO Fill views with FoodItem information
+        SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
+        NameEditText.setText(foodItem.getName());
+        //textViewName.setText(sdf.format(foodItem.getExpirationDate()));
+        spnSearchCategory3.setSelection(Category.indexOf(foodItem.getCategory()));
+        CountText.setText(String.valueOf(foodItem.getQuantity()));
+        spnSearchFoodUnit2.setSelection(Unit.indexOf(foodItem.getUnits()));
+
 
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -91,6 +99,9 @@ public class ModifyItemActivity extends AppCompatActivity {
 
             }
         };
+        textViewName.setText(sdf.format(foodItem.getExpirationDate()));
+        //dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //dialog2.show();
         Button button = (Button) findViewById(R.id.button4);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +140,11 @@ public class ModifyItemActivity extends AppCompatActivity {
                 }*/
                 else {
                     // TODO Update FoodItem with new data
+                    SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
+                    //SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
+                    foodItem.setName(((TextView)findViewById(R.id.editText4)).getText().toString());
+                    //String foodItemString = getIntent().getStringExtra(FoodItem.EXTRA);
+                    //FoodItem foodItem1 = new Gson().fromJson(foodItemString, FoodItem.class);
 
                     StorageManager.getLocalStorage().saveItem(foodItem);
                     Intent intent = new Intent(getApplicationContext(), ViewItemActivity.class);
@@ -141,29 +157,8 @@ public class ModifyItemActivity extends AppCompatActivity {
     }
 
     public void openAllItemActivity() {
-        // TODO Validate input
-
-        // Create a FoodItem
-        FoodItem foodItem = new FoodItem();
-        SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
-        foodItem.setName(((TextView)findViewById(R.id.editText)).getText().toString());
-        Category category = (Category)((Spinner)findViewById(R.id.spnSearchCategory2)).getSelectedItem();
-        foodItem.setCategory(category);
-        try {
-            foodItem.setExpirationDate(sdf.parse(((TextView)findViewById(R.id.tvDate)).getText().toString()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        foodItem.setQuantity(new Double(((TextView)findViewById(R.id.editText3)).getText().toString()));
-        Unit units = (Unit)((Spinner)findViewById(R.id.spnSearchFoodUnit)).getSelectedItem();
-        foodItem.setUnits(units);
-
-        // TODO Save the modified FoodItem to database *done*
-        Log.d(TAG, "food item contain: " + foodItem);
-        //StorageManager.getLocalStorage().saveItem(foodItem);
-
-
         // Get JSON string
+
         String json = new Gson().toJson(foodItem);
 
         // Start ViewItemActivity
