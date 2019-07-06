@@ -35,4 +35,18 @@ public enum Unit {
     public String toString() {
         return String.format("%s (%s)", name, symbol);
     }
+
+    /**
+     * Find the index of a Unit in Unit.values()
+     *
+     * @param unit The Unit to find the index of
+     * @return The index of a Unit, or -1
+     */
+    public static int indexOf(Unit unit) {
+        for (int i = 0; i < values().length; i++) {
+            if (values()[i] == unit)
+                return i;
+        }
+        return -1;
+    }
 }

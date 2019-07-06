@@ -25,4 +25,18 @@ public enum Category {
     public String toString() {
         return this.name;
     }
+
+    /**
+     * Find the index of a Category in Category.values()
+     *
+     * @param category The Category to find the index of
+     * @return The index of a Category, or -1
+     */
+    public static int indexOf(Category category) {
+        for (int i = 0; i < values().length; i++) {
+            if (values()[i] == category)
+                return i;
+        }
+        return -1;
+    }
 }
