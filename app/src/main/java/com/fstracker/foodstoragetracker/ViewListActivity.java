@@ -14,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 public class ViewListActivity extends AppCompatActivity implements ViewListRecyclerAdapter.OnFoodItemListener {
@@ -61,7 +63,9 @@ public class ViewListActivity extends AppCompatActivity implements ViewListRecyc
 
     @Override
     public void onFoodItemClick(int position) {
-        Intent intent = new Intent(this, ModifyItemActivity.class);
+        Intent intent = new Intent(this, ViewItemActivity.class);
+        FoodItem item = ((ViewListRecyclerAdapter)((RecyclerView)findViewById(R.id.rvItems)).getAdapter()).getItem(position);
+        intent.putExtra(FoodItem.EXTRA, new Gson().toJson(item));
         startActivity(intent);
     }
 }

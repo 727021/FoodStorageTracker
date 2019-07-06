@@ -67,6 +67,10 @@ public class ViewListRecyclerAdapter extends RecyclerView.Adapter<ViewListRecycl
         return mDataset.size();
     }
 
+    public FoodItem getItem(int position) {
+        return mDataset.get(position);
+    }
+
     public void updateList(List<FoodItem> newList) {
         mDataset = newList;
     }
