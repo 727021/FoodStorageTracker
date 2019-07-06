@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ViewListActivity extends AppCompatActivity {
+public class ViewListActivity extends AppCompatActivity implements ViewListRecyclerAdapter.OnFoodItemListener {
 
     public static final String EXTRA_SEARCH = "com.fstracker.foodstoragetracker.SEARCH";
     public static final String EXTRA_CATEGORY = "com.fstracker.foodstoragetracker.CATEGORY";
@@ -35,7 +35,7 @@ public class ViewListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        final ViewListRecyclerAdapter mAdapter = new ViewListRecyclerAdapter(StorageManager.getLocalStorage().getItemsByCategory(Category.ALL));
+        final ViewListRecyclerAdapter mAdapter = new ViewListRecyclerAdapter(StorageManager.getLocalStorage().getItemsByCategory(Category.ALL), this);
         recyclerView.setAdapter(mAdapter);
 
         //Create adapter for recyclerview, that allows us toadd/replace itens
@@ -55,8 +55,13 @@ public class ViewListActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-
         });
         //StorageManager.getLocalStorage().getItemsByCategory()
+    }
+
+    @Override
+    public void onFoodItemClick(int position) {
+        Intent intent = new Intent(this, ModifyItemActivity.class);
+        startActivity(intent);
     }
 }

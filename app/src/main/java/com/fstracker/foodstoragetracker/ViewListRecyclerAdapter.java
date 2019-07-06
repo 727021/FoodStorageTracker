@@ -1,6 +1,7 @@
 package com.fstracker.foodstoragetracker;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -11,21 +12,33 @@ import java.util.List;
 public class ViewListRecyclerAdapter extends RecyclerView.Adapter<ViewListRecyclerAdapter.MyViewHolder> {
 
     private List<FoodItem> mDataset;
+    private OnFoodItemListener mOnFoodItemListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ViewListRecyclerAdapter(List <FoodItem> myDataset) {
+    public ViewListRecyclerAdapter(List <FoodItem> myDataset, OnFoodItemListener onFoodItemListener) {
         mDataset = myDataset;
+        mOnFoodItemListener = onFoodItemListener;
     }
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public TextView textView;
-        public MyViewHolder(TextView v) {
+        OnFoodItemListener onFoodItemListener;
+
+        public MyViewHolder(TextView v, OnFoodItemListener onFoodItemListener) {
             super(v);
             textView = v;
+            this.onFoodItemListener = onFoodItemListener;
+
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            onFoodItemListener.onFoodItemClick(getAdapterPosition());
         }
     }
 
@@ -36,7 +49,7 @@ public class ViewListRecyclerAdapter extends RecyclerView.Adapter<ViewListRecycl
         // create a new view
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.foodview_list_item, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
+        MyViewHolder vh = new MyViewHolder(v, mOnFoodItemListener);
         return vh;
     }
 
