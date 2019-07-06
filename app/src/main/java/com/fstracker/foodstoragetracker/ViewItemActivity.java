@@ -32,7 +32,7 @@ public class ViewItemActivity extends AppCompatActivity {
 
         String displayText = "Name: " + name + "\n" +
                 "Category: " + category + "\n" +
-                "Expiration Date: " + new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]).format(expirationDate) + "\n" +
+                "Expiration Date: " + new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]).format(expirationDate) + "\n" +
                 "Amount: " + quantity + " " + units.getName().toLowerCase() + ((quantity > 1) ? "s" : "");
 
         TextView textView = findViewById(R.id.tvViewItem);

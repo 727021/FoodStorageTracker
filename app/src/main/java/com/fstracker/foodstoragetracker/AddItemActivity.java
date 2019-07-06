@@ -132,7 +132,7 @@ public class AddItemActivity extends AppCompatActivity {
     public void openAllItemActivity() {
         // Create a FoodItem
         FoodItem foodItem = new FoodItem();
-        SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
+        SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]);
         foodItem.setName(((TextView)findViewById(R.id.editText)).getText().toString());
         Category category = (Category)((Spinner)findViewById(R.id.spnSearchCategory2)).getSelectedItem();
         foodItem.setCategory(category);

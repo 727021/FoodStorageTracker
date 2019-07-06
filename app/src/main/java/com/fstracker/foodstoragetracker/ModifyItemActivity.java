@@ -80,7 +80,7 @@ public class ModifyItemActivity extends AppCompatActivity {
 
         foodItem = new Gson().fromJson(getIntent().getStringExtra(FoodItem.EXTRA), FoodItem.class);
         // TODO Fill views with FoodItem information
-        SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
+        SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]);
         NameEditText.setText(foodItem.getName());
         //textViewName.setText(sdf.format(foodItem.getExpirationDate()));
         spnSearchCategory3.setSelection(Category.indexOf(foodItem.getCategory()));
@@ -108,7 +108,6 @@ public class ModifyItemActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final String Name= NameEditText.getText().toString();
-                final String word= DescriptionText.getText().toString();
                 final String Count= CountText.getText().toString();
                 final String textv = textViewName.getText().toString();
                 if(Name.length()==0) {
@@ -119,11 +118,6 @@ public class ModifyItemActivity extends AppCompatActivity {
                 else if(textv.length() ==0) {
                     textViewName.requestFocus();
                     textViewName.setError("Field Cannot Be Empty");
-                }
-                //word
-                else if(word.length() ==0) {
-                    DescriptionText.requestFocus();
-                    DescriptionText.setError("Field Cannot Be Empty");
                 }
                 //count
                 else if(Count.length() ==0) {
@@ -140,11 +134,9 @@ public class ModifyItemActivity extends AppCompatActivity {
                 }*/
                 else {
                     // TODO Update FoodItem with new data
-                    SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
+                    SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]);
                     //SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
                     foodItem.setName(((TextView)findViewById(R.id.editText4)).getText().toString());
-                    //String foodItemString = getIntent().getStringExtra(FoodItem.EXTRA);
-                    //FoodItem foodItem1 = new Gson().fromJson(foodItemString, FoodItem.class);
 
                     StorageManager.getLocalStorage().saveItem(foodItem);
                     Intent intent = new Intent(getApplicationContext(), ViewItemActivity.class);

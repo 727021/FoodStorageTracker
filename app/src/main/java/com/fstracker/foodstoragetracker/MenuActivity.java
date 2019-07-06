@@ -31,16 +31,6 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        // Initialize app settings
-        if (Settings.settings == null) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            String json = prefs.getString(Settings.SETTINGS_KEY, getString(R.string.default_settings_json));
-            Settings.settings = new Gson().fromJson(json, Settings.class);
-        }
-        if (Settings.defaultSettings == null) {
-            Settings.defaultSettings = new Gson().fromJson(getString(R.string.default_settings_json), Settings.class);
-        }
-
         // Fill the category spinner
         Spinner spnSearchCategory = findViewById(R.id.spnSearchCategory);
         ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());

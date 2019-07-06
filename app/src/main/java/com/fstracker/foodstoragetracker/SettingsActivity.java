@@ -61,25 +61,25 @@ public class SettingsActivity extends AppCompatActivity {
         spnReminderUnits.setAdapter(ruAdapter);
 
         // Fill views with the current app settings
-        switchDarkMode.setChecked(Settings.settings.darkMode);
-        switchUseScanner.setChecked(Settings.settings.useScanner);
-        spnDateFormat.setSelection(Settings.settings.dateFormat);
-        txtReminderTime.setText(String.valueOf(Settings.settings.reminderTime));
-        spnReminderUnits.setSelection(Settings.settings.reminderUnits);
+        switchDarkMode.setChecked(Settings.getSettings().darkMode);
+        switchUseScanner.setChecked(Settings.getSettings().useScanner);
+        spnDateFormat.setSelection(Settings.getSettings().dateFormat);
+        txtReminderTime.setText(String.valueOf(Settings.getSettings().reminderTime));
+        spnReminderUnits.setSelection(Settings.getSettings().reminderUnits);
     }
 
     /**
      * Update {@link Settings}.settings and write to SharedPreferences
      */
     private void saveSettings() {
-        Settings.settings.darkMode = ((Switch)findViewById(R.id.switchDarkMode)).isChecked();
-        Settings.settings.useScanner = ((Switch)findViewById(R.id.switchScanner)).isChecked();
-        Settings.settings.dateFormat = ((Spinner)findViewById(R.id.spnDateFormat)).getSelectedItemPosition();
+        Settings.getSettings().darkMode = ((Switch)findViewById(R.id.switchDarkMode)).isChecked();
+        Settings.getSettings().useScanner = ((Switch)findViewById(R.id.switchScanner)).isChecked();
+        Settings.getSettings().dateFormat = ((Spinner)findViewById(R.id.spnDateFormat)).getSelectedItemPosition();
         int reminderTime = Integer.parseInt(((TextView)findViewById(R.id.txtReminderTime)).getText().toString());
-        Settings.settings.reminderTime = (reminderTime <= 0) ? Settings.settings.reminderTime : reminderTime;
-        Settings.settings.reminderUnits = ((Spinner)findViewById(R.id.spnReminderUnits)).getSelectedItemPosition();
+        Settings.getSettings().reminderTime = (reminderTime <= 0) ? Settings.getSettings().reminderTime : reminderTime;
+        Settings.getSettings().reminderUnits = ((Spinner)findViewById(R.id.spnReminderUnits)).getSelectedItemPosition();
 
-        String json = new Gson().toJson(Settings.settings);
+        String json = new Gson().toJson(Settings.getSettings());
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
         editor.putString(Settings.SETTINGS_KEY, json);
         editor.apply();
@@ -107,11 +107,11 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void resetClick(View v) {
-        switchDarkMode.setChecked(Settings.defaultSettings.darkMode);
-        switchUseScanner.setChecked(Settings.defaultSettings.useScanner);
-        spnDateFormat.setSelection(Settings.defaultSettings.dateFormat);
-        txtReminderTime.setText(String.valueOf(Settings.defaultSettings.reminderTime));
-        spnReminderUnits.setSelection(Settings.defaultSettings.reminderUnits);
+        switchDarkMode.setChecked(Settings.getSettings(true).darkMode);
+        switchUseScanner.setChecked(Settings.getSettings(true).useScanner);
+        spnDateFormat.setSelection(Settings.getSettings(true).dateFormat);
+        txtReminderTime.setText(String.valueOf(Settings.getSettings(true).reminderTime));
+        spnReminderUnits.setSelection(Settings.getSettings(true).reminderUnits);
     }
 
     /**

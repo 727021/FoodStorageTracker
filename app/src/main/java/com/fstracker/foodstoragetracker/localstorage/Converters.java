@@ -20,13 +20,13 @@ public class Converters {
     @TypeConverter
     public static String fromDate(Date date) {
         // Dates are saved in the format selected in SettingsActivity
-        return new SimpleDateFormat(FoodStorageApplication.getInstance().getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]).format(date);
+        return new SimpleDateFormat(FoodStorageApplication.getInstance().getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]).format(date);
     }
 
     @TypeConverter
     public static Date toDate(String date) {
         try {
-            return new SimpleDateFormat(FoodStorageApplication.getInstance().getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]).parse(date);
+            return new SimpleDateFormat(FoodStorageApplication.getInstance().getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]).parse(date);
         } catch (ParseException e) {
             return new Date();
         }
