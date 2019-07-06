@@ -10,7 +10,7 @@ public class StorageManager {
 
     private static LocalStorage localStorage;
 //    private static CloudStorage cloudStorage;
-
+//
     /**
      * Create a {@link LocalStorage} instance if there is not one already.
      * @return an instance of {@link LocalStorage}.

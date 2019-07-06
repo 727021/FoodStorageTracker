@@ -149,7 +149,7 @@ public class AddItemActivity extends AppCompatActivity {
         Log.d(TAG, "food item contain: " + foodItem);
         StorageManager.getLocalStorage().saveItem(foodItem);
 
-
+//
         // Get JSON string
         String json = new Gson().toJson(foodItem);
 

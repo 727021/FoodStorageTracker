@@ -106,7 +106,7 @@ public class ModifyItemActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//
                 final String Name= NameEditText.getText().toString();
                 final String word= DescriptionText.getText().toString();
                 final String Count= CountText.getText().toString();

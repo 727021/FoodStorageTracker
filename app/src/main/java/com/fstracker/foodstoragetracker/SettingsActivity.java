@@ -59,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
         ArrayAdapter<String> ruAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.notification_time_units));
         ruAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnReminderUnits.setAdapter(ruAdapter);
-
+//
         // Fill views with the current app settings
         switchDarkMode.setChecked(Settings.settings.darkMode);
         switchUseScanner.setChecked(Settings.settings.useScanner);

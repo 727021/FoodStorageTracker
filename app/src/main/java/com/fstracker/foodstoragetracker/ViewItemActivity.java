@@ -29,7 +29,7 @@ public class ViewItemActivity extends AppCompatActivity {
         Category category = foodItem.getCategory();
         Unit units = foodItem.getUnits();
         double quantity = foodItem.getQuantity();
-
+  //
         String displayText = "Name: " + name + "\n" +
                 "Category: " + category + "\n" +
                 "Expiration Date: " + new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]).format(expirationDate) + "\n" +
