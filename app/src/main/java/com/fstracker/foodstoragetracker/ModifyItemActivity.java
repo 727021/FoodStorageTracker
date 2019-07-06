@@ -67,13 +67,13 @@ public class ModifyItemActivity extends AppCompatActivity {
             }
         });
         // Fill the category spinner
-        Spinner spnSearchCategory3 = findViewById(R.id.spnSearchCategory3);
+        final Spinner spnSearchCategory3 = findViewById(R.id.spnSearchCategory3);
         ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory3.setAdapter(adapter);
 
         // Fill the FoodUnit spinner
-        Spinner spnSearchFoodUnit2 = findViewById(R.id.spnSearchFoodUnit2);
+        final Spinner spnSearchFoodUnit2 = findViewById(R.id.spnSearchFoodUnit2);
         ArrayAdapter<Unit> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Unit.values());
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchFoodUnit2.setAdapter(adapter2);
@@ -143,6 +143,15 @@ public class ModifyItemActivity extends AppCompatActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
                     //SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
                     foodItem.setName(((TextView)findViewById(R.id.editText4)).getText().toString());
+                    foodItem.setCategory((Category)spnSearchCategory3.getSelectedItem());
+                    foodItem.setUnits((Unit)spnSearchFoodUnit2.getSelectedItem());
+                    foodItem.setQuantity(Double.valueOf(CountText.getText().toString()));
+                    try {
+                        foodItem.setExpirationDate(sdf.parse(((TextView)findViewById(R.id.tvDate2)).getText().toString()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                     //String foodItemString = getIntent().getStringExtra(FoodItem.EXTRA);
                     //FoodItem foodItem1 = new Gson().fromJson(foodItemString, FoodItem.class);
 
@@ -167,5 +176,6 @@ public class ModifyItemActivity extends AppCompatActivity {
         startActivity(intent);
         Log.d(TAG, "Saved Items: " + json);
         Toast.makeText(getApplicationContext(), "Food item stored", Toast.LENGTH_LONG).show();
+
     }
 }
