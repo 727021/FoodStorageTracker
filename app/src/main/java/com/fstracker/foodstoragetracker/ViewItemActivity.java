@@ -59,6 +59,7 @@ public class ViewItemActivity extends AppCompatActivity {
         Log.d(TAG, "Open DeleteItemActivity");
         Intent intent = new Intent();
         intent.setClass(getApplicationContext(), ModifyItemActivity.class);
+        intent.putExtra(FoodItem.EXTRA, getIntent().getStringExtra(FoodItem.EXTRA));
         startActivity(intent);
     }
 }
