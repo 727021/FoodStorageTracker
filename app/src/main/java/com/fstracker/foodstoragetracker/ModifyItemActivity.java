@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ModifyItemActivity extends AppCompatActivity {
-    EditText NameEditText,DescriptionText,CountText;
+    EditText NameEditText,CountText;
     private FoodItem foodItem;
 
     TextView textViewName;
@@ -67,19 +67,19 @@ public class ModifyItemActivity extends AppCompatActivity {
             }
         });
         // Fill the category spinner
-        Spinner spnSearchCategory3 = findViewById(R.id.spnSearchCategory3);
+        final Spinner spnSearchCategory3 = findViewById(R.id.spnSearchCategory3);
         ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory3.setAdapter(adapter);
 
         // Fill the FoodUnit spinner
-        Spinner spnSearchFoodUnit2 = findViewById(R.id.spnSearchFoodUnit2);
+        final Spinner spnSearchFoodUnit2 = findViewById(R.id.spnSearchFoodUnit2);
         ArrayAdapter<Unit> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Unit.values());
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchFoodUnit2.setAdapter(adapter2);
 
         foodItem = new Gson().fromJson(getIntent().getStringExtra(FoodItem.EXTRA), FoodItem.class);
-        // TODO Fill views with FoodItem information
+        // Fill views with FoodItem information
         SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]);
         NameEditText.setText(foodItem.getName());
         //textViewName.setText(sdf.format(foodItem.getExpirationDate()));
@@ -106,7 +106,7 @@ public class ModifyItemActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//
                 final String Name= NameEditText.getText().toString();
                 final String Count= CountText.getText().toString();
                 final String textv = textViewName.getText().toString();
@@ -133,10 +133,21 @@ public class ModifyItemActivity extends AppCompatActivity {
                     NameEditText.setError("ENTER ONLY ALPHABETICAL CHARACTER");
                 }*/
                 else {
-                    // TODO Update FoodItem with new data
+                    // Update FoodItem with new data
                     SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]);
                     //SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
                     foodItem.setName(((TextView)findViewById(R.id.editText4)).getText().toString());
+                    foodItem.setCategory((Category)spnSearchCategory3.getSelectedItem());
+                    foodItem.setUnits((Unit)spnSearchFoodUnit2.getSelectedItem());
+                    foodItem.setQuantity(Double.valueOf(CountText.getText().toString()));
+                    try {
+                        foodItem.setExpirationDate(sdf.parse(((TextView)findViewById(R.id.tvDate2)).getText().toString()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    //String foodItemString = getIntent().getStringExtra(FoodItem.EXTRA);
+                    //FoodItem foodItem1 = new Gson().fromJson(foodItemString, FoodItem.class);
 
                     StorageManager.getLocalStorage().saveItem(foodItem);
                     Intent intent = new Intent(getApplicationContext(), ViewItemActivity.class);
@@ -159,5 +170,6 @@ public class ModifyItemActivity extends AppCompatActivity {
         startActivity(intent);
         Log.d(TAG, "Saved Items: " + json);
         Toast.makeText(getApplicationContext(), "Food item stored", Toast.LENGTH_LONG).show();
+
     }
 }

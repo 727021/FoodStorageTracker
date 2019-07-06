@@ -18,7 +18,7 @@ public interface IStorageManager {
      * @return The number of FoodItems saved or updated.
      */
     int saveAllItems(List<FoodItem> items);
-
+//
     /**
      * Saves a single FoodItem object to the database.
      * @param item The FoodItem object to save.

@@ -29,11 +29,11 @@ public class ViewItemActivity extends AppCompatActivity {
         Category category = foodItem.getCategory();
         Unit units = foodItem.getUnits();
         double quantity = foodItem.getQuantity();
-
+  //
         String displayText = "Name: " + name + "\n" +
                 "Category: " + category + "\n" +
                 "Expiration Date: " + new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]).format(expirationDate) + "\n" +
-                "Amount: " + quantity + " " + units.getName().toLowerCase() + ((quantity > 1) ? "s" : "");
+                "Amount: " + quantity + " " + units.getName().toLowerCase() + ((quantity > 1 && units != Unit.COUNT) ? "s" : "");
 
         TextView textView = findViewById(R.id.tvViewItem);
         textView.setText(displayText);

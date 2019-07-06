@@ -11,7 +11,7 @@ public class FoodStorageApplication extends Application {
     public FoodStorageApplication() {
         instance = this;
     }
-
+//
     public static FoodStorageApplication getInstance() {
         return instance;
     }

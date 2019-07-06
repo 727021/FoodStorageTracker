@@ -52,7 +52,7 @@ public class MenuActivity extends AppCompatActivity {
         Log.d(TAG, "Open AddItemActivity");
         startActivity(new Intent(getApplicationContext(), AddItemActivity.class));
     }
-
+//
     /**
      * Open ViewListActivity.
      * @param v The button that was clicked.

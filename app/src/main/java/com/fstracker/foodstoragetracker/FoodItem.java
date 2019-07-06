@@ -24,7 +24,7 @@ public class FoodItem {
     private Category category;
     private Unit units;
     private double quantity;
-
+//
     public int getId() {
         return id;
     }

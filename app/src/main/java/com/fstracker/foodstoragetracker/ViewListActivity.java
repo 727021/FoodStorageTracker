@@ -27,7 +27,7 @@ public class ViewListActivity extends AppCompatActivity implements ViewListRecyc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
-
+//
         Spinner mySpinner = (Spinner) findViewById(R.id.categorySpinner);
         mySpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Category.values()));
 

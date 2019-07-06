@@ -34,6 +34,6 @@ public class Settings {
     public boolean darkMode;
     public boolean useScanner;
     public int dateFormat;
-    public int reminderTime;
+    public int reminderTime;//
     public int reminderUnits;
 }
