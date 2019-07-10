@@ -24,14 +24,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ModifyItemActivity extends AppCompatActivity {
-    EditText NameEditText,CountText;
-    private FoodItem foodItem;
-
-    TextView textViewName;
-
     private final String TAG = getClass().getSimpleName();
+
     private TextView mDisplayDate2;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private EditText nameEditText;
+    private EditText countText;
+    private FoodItem foodItem;
+    private TextView textViewName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +39,12 @@ public class ModifyItemActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_modify_item);
 
-        NameEditText=(EditText)findViewById(R.id.editText4);
-        CountText=(EditText)findViewById(R.id.editText2);
+        nameEditText = findViewById(R.id.editText4);
+        countText = findViewById(R.id.editText2);
+        textViewName= findViewById(R.id.tvDate2);
 
-        textViewName=(TextView)findViewById(R.id.tvDate2);
-
-         /*
-         * This will create the text View for the Expiration Date
-         */
-
-        mDisplayDate2 = (TextView) findViewById(R.id.tvDate2);
+        // This will create the text View for the Expiration Date
+        mDisplayDate2 = findViewById(R.id.tvDate2);
         mDisplayDate2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +62,7 @@ public class ModifyItemActivity extends AppCompatActivity {
                 dialog2.show();
             }
         });
+
         // Fill the category spinner
         final Spinner spnSearchCategory3 = findViewById(R.id.spnSearchCategory3);
         ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
@@ -79,14 +76,13 @@ public class ModifyItemActivity extends AppCompatActivity {
         spnSearchFoodUnit2.setAdapter(adapter2);
 
         foodItem = new Gson().fromJson(getIntent().getStringExtra(FoodItem.EXTRA), FoodItem.class);
+
         // Fill views with FoodItem information
         SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]);
-        NameEditText.setText(foodItem.getName());
-        //textViewName.setText(sdf.format(foodItem.getExpirationDate()));
+        nameEditText.setText(foodItem.getName());
         spnSearchCategory3.setSelection(Category.indexOf(foodItem.getCategory()));
-        CountText.setText(String.valueOf(foodItem.getQuantity()));
+        countText.setText(String.valueOf(foodItem.getQuantity()));
         spnSearchFoodUnit2.setSelection(Unit.indexOf(foodItem.getUnits()));
-
 
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -100,19 +96,16 @@ public class ModifyItemActivity extends AppCompatActivity {
             }
         };
         textViewName.setText(sdf.format(foodItem.getExpirationDate()));
-        //dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        //dialog2.show();
-        Button button = (Button) findViewById(R.id.button4);
+        Button button = findViewById(R.id.button4);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-                final String Name= NameEditText.getText().toString();
-                final String Count= CountText.getText().toString();
+                final String name= nameEditText.getText().toString();
+                final String count= countText.getText().toString();
                 final String textv = textViewName.getText().toString();
-                if(Name.length()==0) {
-                    NameEditText.requestFocus();
-                    NameEditText.setError("Field Cannot Be Empty");
+                if(name.length()==0) {
+                    nameEditText.requestFocus();
+                    nameEditText.setError("Field Cannot Be Empty");
                 }
                 //textv
                 else if(textv.length() ==0) {
@@ -120,56 +113,35 @@ public class ModifyItemActivity extends AppCompatActivity {
                     textViewName.setError("Field Cannot Be Empty");
                 }
                 //count
-                else if(Count.length() ==0) {
-                    CountText.requestFocus();
-                    CountText.setError("Field Cannot Be Empty");
+                else if(count.length() ==0) {
+                    countText.requestFocus();
+                    countText.setError("Field Cannot Be Empty");
                 }
-
-
                 // DO WE WANT THE FOOD NAME WITHOUT NUMBERS?
                     /*else if(!Name.matches("[a-zA-Z]+"))
                 {
-                    NameEditText.requestFocus();
-                    NameEditText.setError("ENTER ONLY ALPHABETICAL CHARACTER");
+                    nameEditText.requestFocus();
+                    nameEditText.setError("ENTER ONLY ALPHABETICAL CHARACTER");
                 }*/
                 else {
                     // Update FoodItem with new data
                     SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]);
-                    //SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.settings.dateFormat]);
                     foodItem.setName(((TextView)findViewById(R.id.editText4)).getText().toString());
                     foodItem.setCategory((Category)spnSearchCategory3.getSelectedItem());
                     foodItem.setUnits((Unit)spnSearchFoodUnit2.getSelectedItem());
-                    foodItem.setQuantity(Double.valueOf(CountText.getText().toString()));
+                    foodItem.setQuantity(Double.valueOf(countText.getText().toString()));
                     try {
                         foodItem.setExpirationDate(sdf.parse(((TextView)findViewById(R.id.tvDate2)).getText().toString()));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-
-                    //String foodItemString = getIntent().getStringExtra(FoodItem.EXTRA);
-                    //FoodItem foodItem1 = new Gson().fromJson(foodItemString, FoodItem.class);
-
                     StorageManager.getLocalStorage().saveItem(foodItem);
                     Intent intent = new Intent(getApplicationContext(), ViewItemActivity.class);
                     intent.putExtra(FoodItem.EXTRA, new Gson().toJson(foodItem));
                     startActivity(intent);
-                    Toast.makeText(getApplicationContext(), "Food item Modify", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), String.format("Updated %s", foodItem), Toast.LENGTH_LONG).show();
                 }
             }
         });
-    }
-
-    public void openAllItemActivity() {
-        // Get JSON string
-
-        String json = new Gson().toJson(foodItem);
-
-        // Start ViewItemActivity
-        Intent intent = new Intent (this, ViewItemActivity.class);
-        intent.putExtra(FoodItem.EXTRA, json);
-        startActivity(intent);
-        Log.d(TAG, "Saved Items: " + json);
-        Toast.makeText(getApplicationContext(), "Food item stored", Toast.LENGTH_LONG).show();
-
     }
 }

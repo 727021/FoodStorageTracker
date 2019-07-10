@@ -19,7 +19,7 @@ public class DeleteItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private FoodItem foodItem;
     private String json;
-//
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

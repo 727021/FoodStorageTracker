@@ -10,7 +10,7 @@ import com.fstracker.foodstoragetracker.FoodItem;
  * The RoomDatabase class to be used with {@link LocalStorage}.
  * The only instance of this class should be in LocalStorage.
  */
-@Database(entities = {FoodItem.class}, version = 1)
+@Database(entities = {FoodItem.class}, version = 1, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class FoodItemDatabase extends RoomDatabase {
     public abstract FoodItemDao getDao();

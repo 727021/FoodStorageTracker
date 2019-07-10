@@ -15,7 +15,7 @@ public class ViewListRecyclerAdapter extends RecyclerView.Adapter<ViewListRecycl
     private OnFoodItemListener mOnFoodItemListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ViewListRecyclerAdapter(List <FoodItem> myDataset, OnFoodItemListener onFoodItemListener) {
+    public ViewListRecyclerAdapter(List<FoodItem> myDataset, OnFoodItemListener onFoodItemListener) {
         mDataset = myDataset;
         mOnFoodItemListener = onFoodItemListener;
     }

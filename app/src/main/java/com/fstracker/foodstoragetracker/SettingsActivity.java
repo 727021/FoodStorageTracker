@@ -4,7 +4,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -59,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
         ArrayAdapter<String> ruAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.notification_time_units));
         ruAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnReminderUnits.setAdapter(ruAdapter);
-//
+
         // Fill views with the current app settings
         switchDarkMode.setChecked(Settings.getSettings().darkMode);
         switchUseScanner.setChecked(Settings.getSettings().useScanner);

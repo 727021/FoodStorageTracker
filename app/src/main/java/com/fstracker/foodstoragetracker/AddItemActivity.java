@@ -27,12 +27,12 @@ import java.util.List;
 
 public class AddItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
+
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-
-    EditText nameEditText;
-    EditText countText;
-    TextView textViewName;
+    private EditText nameEditText;
+    private EditText countText;
+    private TextView textViewName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +43,7 @@ public class AddItemActivity extends AppCompatActivity {
         countText = findViewById(R.id.editText3);
         textViewName = findViewById(R.id.tvDate);
 
-        /*
-         * This will create the text View for the Expiration Date
-         */
+        // This will create the text View for the Expiration Date
         mDisplayDate = findViewById(R.id.tvDate);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +73,6 @@ public class AddItemActivity extends AppCompatActivity {
         ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory2.setAdapter(adapter);
-
 
         // Fill the FoodUnit spinner
         Spinner spnSearchFoodUnit = findViewById(R.id.spnSearchFoodUnit);
@@ -114,8 +111,6 @@ public class AddItemActivity extends AppCompatActivity {
                     countText.requestFocus();
                     countText.setError("Field Cannot Be Empty");
                 }
-
-
                 // DO WE WANT THE FOOD NAME WITHOUT NUMBERS?
                     /*else if(!Name.matches("[a-zA-Z]+"))
                 {
@@ -149,7 +144,6 @@ public class AddItemActivity extends AppCompatActivity {
         Log.d(TAG, "food item contain: " + foodItem);
         StorageManager.getLocalStorage().saveItem(foodItem);
 
-//
         // Get JSON string
         String json = new Gson().toJson(foodItem);
 
@@ -158,6 +152,6 @@ public class AddItemActivity extends AppCompatActivity {
         intent.putExtra(FoodItem.EXTRA, json);
         startActivity(intent);
         Log.d(TAG, "Saved Items: " + json);
-        Toast.makeText(getApplicationContext(), "Food item stored", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), String.format("Saved %s", foodItem), Toast.LENGTH_LONG).show();
     }
 }
