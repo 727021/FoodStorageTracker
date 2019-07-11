@@ -53,6 +53,7 @@ public class AddItemActivity extends AppCompatActivity {
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
+
                 DatePickerDialog dialog = new DatePickerDialog(
                         AddItemActivity.this,
                         android.R.style.Theme_Holo_Dialog_MinWidth,
@@ -60,6 +61,7 @@ public class AddItemActivity extends AppCompatActivity {
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
+
             }
         });
 
@@ -84,10 +86,36 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                 month = month + 1 ;
+
+
                 Log.d(TAG, "onDateSet: mm/dd/yyy " + month + "/" + dayOfMonth + "/" + year);
                 //the variable date has the date.
                 String date = month + "/" + dayOfMonth + "/" + year;
-                mDisplayDate.setText(date);
+
+                Calendar c = Calendar.getInstance();
+                int day2 = c.get(Calendar.DAY_OF_MONTH);
+                int month2 = c.get(Calendar.MONTH);
+                int year2 = c.get(Calendar.YEAR);
+                String date2 = (month2 +1) + "/" + day2 + "/" + year2;
+
+
+                if(date.equals(date2)){
+                    textViewName.requestFocus();
+                    Log.d(TAG, "The date equals: " + date);
+                    Log.d(TAG, "The date equals: " + date2);
+                    textViewName.setError("This Product Will Expire today");
+                }
+                else {
+                    textViewName.requestFocus();
+                    textViewName.setError(null);
+                    mDisplayDate.setText(date);
+
+
+                    Log.d(TAG, "The date1 equals: " + date);
+                    Log.d(TAG, "The date2 equals: " + date2);
+
+                }
+
 
             }
         };
@@ -99,6 +127,17 @@ public class AddItemActivity extends AppCompatActivity {
                 final String name = nameEditText.getText().toString();
                 final String count = countText.getText().toString();
                 final String textv = textViewName.getText().toString();
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                Calendar c = Calendar.getInstance();
+                String date = sdf.format(c.getTime());
+                Log.d(TAG, "The date equals: " + date);
+                Log.d(TAG, "The tv text equals: " + textv);
+                if(textv == date){
+                    textViewName.requestFocus();
+                    Log.d(TAG, "The date equals: " + date);
+                    Log.d(TAG, "The date equals: " + textv);
+                    textViewName.setError("This Product Will Expire today");
+                }
                 if(name.length() == 0) {
                     nameEditText.requestFocus();
                     nameEditText.setError("Field Cannot Be Empty");
@@ -107,6 +146,7 @@ public class AddItemActivity extends AppCompatActivity {
                     textViewName.requestFocus();
                     textViewName.setError("Field Cannot Be Empty");
                 }
+
                 else if(count.length() == 0) {
                     countText.requestFocus();
                     countText.setError("Field Cannot Be Empty");
