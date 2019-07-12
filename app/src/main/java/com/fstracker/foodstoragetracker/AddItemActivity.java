@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
+import java.util.Date;
 public class AddItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
 
@@ -33,7 +33,12 @@ public class AddItemActivity extends AppCompatActivity {
     private EditText nameEditText;
     private EditText countText;
     private TextView textViewName;
-
+    public int day;
+    public int month;
+    public int year;
+    public int day2;
+    public int month2;
+    public int year2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +54,9 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+                year = cal.get(Calendar.YEAR);
+                month = cal.get(Calendar.MONTH);
+                day = cal.get(Calendar.DAY_OF_MONTH);
 
 
                 DatePickerDialog dialog = new DatePickerDialog(
@@ -87,19 +92,28 @@ public class AddItemActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                 month = month + 1 ;
 
-
+ 
                 Log.d(TAG, "onDateSet: mm/dd/yyy " + month + "/" + dayOfMonth + "/" + year);
                 //the variable date has the date.
                 String date = month + "/" + dayOfMonth + "/" + year;
 
                 Calendar c = Calendar.getInstance();
-                int day2 = c.get(Calendar.DAY_OF_MONTH);
-                int month2 = c.get(Calendar.MONTH);
-                int year2 = c.get(Calendar.YEAR);
+                 day2 = c.get(Calendar.DAY_OF_MONTH);
+                 month2 = c.get(Calendar.MONTH);
+                 year2 = c.get(Calendar.YEAR);
                 String date2 = (month2 +1) + "/" + day2 + "/" + year2;
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/DD/YYY");
 
+                //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-                if(date.equals(date2)){
+                if(date.compareTo(date2)< 0){
+                    textViewName.requestFocus();
+                    Log.d(TAG, "The day  compareTo: " + date);
+                    Log.d(TAG, "The day2 compareTo: " + date2);
+                    textViewName.setError("This Product is Expired");
+                }
+
+                else if(date.equals(date2)){
                     textViewName.requestFocus();
                     Log.d(TAG, "The date equals: " + date);
                     Log.d(TAG, "The date equals: " + date2);
