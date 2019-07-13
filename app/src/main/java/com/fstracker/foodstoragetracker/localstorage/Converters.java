@@ -3,13 +3,10 @@ package com.fstracker.foodstoragetracker.localstorage;
 import androidx.room.TypeConverter;
 
 import com.fstracker.foodstoragetracker.Category;
-import com.fstracker.foodstoragetracker.FoodStorageApplication;
-import com.fstracker.foodstoragetracker.R;
-import com.fstracker.foodstoragetracker.Settings;
+import com.fstracker.foodstoragetracker.StorageManager;
 import com.fstracker.foodstoragetracker.Unit;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -19,14 +16,14 @@ public class Converters {
 
     @TypeConverter
     public static String fromDate(Date date) {
-        // Dates are saved in the format selected in SettingsActivity
-        return new SimpleDateFormat(FoodStorageApplication.getInstance().getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]).format(date);
+        // Dates are saved in the same format regardless of settings
+        return StorageManager.storageDateFormat.format(date);
     }
 
     @TypeConverter
     public static Date toDate(String date) {
         try {
-            return new SimpleDateFormat(FoodStorageApplication.getInstance().getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]).parse(date);
+            return StorageManager.storageDateFormat.parse(date);
         } catch (ParseException e) {
             return new Date();
         }

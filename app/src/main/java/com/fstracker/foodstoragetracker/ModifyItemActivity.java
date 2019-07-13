@@ -104,7 +104,6 @@ public class ModifyItemActivity extends AppCompatActivity {
                 int month2 = c.get(Calendar.MONTH);
                 int year2 = c.get(Calendar.YEAR);
                 String date2 = (month2 +1) + "/" + day2 + "/" + year2;
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
                 if(date.compareTo(date2)< 0){
                     textViewName.requestFocus();

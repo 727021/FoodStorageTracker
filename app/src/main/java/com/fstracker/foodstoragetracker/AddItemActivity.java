@@ -85,7 +85,6 @@ public class AddItemActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                 month = month + 1 ;
 
-
                 Log.d(TAG, "onDateSet: mm/dd/yyy " + month + "/" + dayOfMonth + "/" + year);
                 //the variable date has the date.
                 String date = month + "/" + dayOfMonth + "/" + year;
@@ -97,15 +96,12 @@ public class AddItemActivity extends AppCompatActivity {
                 String date2 = (month2 +1) + "/" + day2 + "/" + year2;
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
-                //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-                if(date.compareTo(date2)< 0){
+                if(date.compareTo(date2) < 0){
                     textViewName.requestFocus();
                     Log.d(TAG, "The day  compareTo: " + date);
                     Log.d(TAG, "The day2 compareTo: " + date2);
                     textViewName.setError("This Product is Expired");
                 }
-
                 else if(date.equals(date2)){
                     textViewName.requestFocus();
                     Log.d(TAG, "The date equals: " + date);
@@ -117,13 +113,10 @@ public class AddItemActivity extends AppCompatActivity {
                     textViewName.setError(null);
                     mDisplayDate.setText(date);
 
-
                     Log.d(TAG, "The date1 equals: " + date);
                     Log.d(TAG, "The date2 equals: " + date2);
 
                 }
-
-
             }
         };
 

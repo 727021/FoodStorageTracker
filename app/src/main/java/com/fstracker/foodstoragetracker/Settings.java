@@ -5,6 +5,8 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
+
 /**
  * A class containing user settings.
  */
@@ -36,4 +38,8 @@ public class Settings {
     public int dateFormat;
     public int reminderTime;
     public int reminderUnits;
+
+    public SimpleDateFormat getDateFormat() {
+        return new SimpleDateFormat(FoodStorageApplication.getInstance().getResources().getStringArray(R.array.date_formats)[dateFormat]);
+    }
 }
