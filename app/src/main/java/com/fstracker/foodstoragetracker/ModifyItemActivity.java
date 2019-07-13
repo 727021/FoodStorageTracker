@@ -91,7 +91,43 @@ public class ModifyItemActivity extends AppCompatActivity {
                 Log.d(TAG, "onDateSet: mm/dd/yyy " + month + "/" + dayOfMonth + "/" + year);
                 //the variable date has the date.
                 String date = month + "/" + dayOfMonth + "/" + year;
-                mDisplayDate2.setText(date);
+
+                Calendar c = Calendar.getInstance();
+                int day2 = c.get(Calendar.DAY_OF_MONTH);
+                int month2 = c.get(Calendar.MONTH);
+                int year2 = c.get(Calendar.YEAR);
+                String date2 = (month2 +1) + "/" + day2 + "/" + year2;
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/DD/YYY");
+
+                //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+                if(date.compareTo(date2)< 0){
+                    textViewName.requestFocus();
+                    Log.d(TAG, "The day  compareTo: " + date);
+                    Log.d(TAG, "The day2 compareTo: " + date2);
+                    textViewName.setError("This Product is Expired");
+                }
+
+                else if(date.equals(date2)){
+                    textViewName.requestFocus();
+                    Log.d(TAG, "The date equals: " + date);
+                    Log.d(TAG, "The date equals: " + date2);
+                    textViewName.setError("This Product Will Expire today");
+                }
+                else {
+                    textViewName.requestFocus();
+                    textViewName.setError(null);
+                    mDisplayDate2.setText(date);
+
+
+                    Log.d(TAG, "The date1 equals: " + date);
+                    Log.d(TAG, "The date2 equals: " + date2);
+
+                }
+
+
+
+
 
             }
         };
