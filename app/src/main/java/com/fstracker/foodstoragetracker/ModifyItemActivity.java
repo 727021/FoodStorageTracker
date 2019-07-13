@@ -21,7 +21,9 @@ import com.google.gson.Gson;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ModifyItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -65,7 +67,12 @@ public class ModifyItemActivity extends AppCompatActivity {
 
         // Fill the category spinner
         final Spinner spnSearchCategory3 = findViewById(R.id.spnSearchCategory3);
-        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
+        List<Category> values = new ArrayList<>();
+        for (Category cat : Category.values()) {
+            if (cat != Category.ALL) // ALL shouldn't be a choice when modifying an item
+                values.add(cat);
+        }
+        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory3.setAdapter(adapter);
 
@@ -97,9 +104,7 @@ public class ModifyItemActivity extends AppCompatActivity {
                 int month2 = c.get(Calendar.MONTH);
                 int year2 = c.get(Calendar.YEAR);
                 String date2 = (month2 +1) + "/" + day2 + "/" + year2;
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/DD/YYY");
-
-                //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
                 if(date.compareTo(date2)< 0){
                     textViewName.requestFocus();
@@ -107,7 +112,6 @@ public class ModifyItemActivity extends AppCompatActivity {
                     Log.d(TAG, "The day2 compareTo: " + date2);
                     textViewName.setError("This Product is Expired");
                 }
-
                 else if(date.equals(date2)){
                     textViewName.requestFocus();
                     Log.d(TAG, "The date equals: " + date);
@@ -119,16 +123,9 @@ public class ModifyItemActivity extends AppCompatActivity {
                     textViewName.setError(null);
                     mDisplayDate2.setText(date);
 
-
                     Log.d(TAG, "The date1 equals: " + date);
                     Log.d(TAG, "The date2 equals: " + date2);
-
                 }
-
-
-
-
-
             }
         };
         textViewName.setText(sdf.format(foodItem.getExpirationDate()));

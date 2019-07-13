@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Date;
+
 public class AddItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
 
@@ -53,7 +53,6 @@ public class AddItemActivity extends AppCompatActivity {
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-
                 DatePickerDialog dialog = new DatePickerDialog(
                         AddItemActivity.this,
                         android.R.style.Theme_Holo_Dialog_MinWidth,
@@ -61,7 +60,6 @@ public class AddItemActivity extends AppCompatActivity {
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
-
             }
         });
 
@@ -97,7 +95,7 @@ public class AddItemActivity extends AppCompatActivity {
                  int month2 = c.get(Calendar.MONTH);
                  int year2 = c.get(Calendar.YEAR);
                 String date2 = (month2 +1) + "/" + day2 + "/" + year2;
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/DD/YYY");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
                 //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
