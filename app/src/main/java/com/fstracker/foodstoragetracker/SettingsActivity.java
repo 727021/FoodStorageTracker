@@ -44,7 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
         txtReminderTime = findViewById(R.id.txtReminderTime);
 
         // TODO Remove this once settings are fully implemented
-        spnDateFormat.setEnabled(false);
+        //spnDateFormat.setEnabled(false);
         spnReminderUnits.setEnabled(false);
 
         // Fill date format spinner

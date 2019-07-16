@@ -29,7 +29,11 @@ public class DeleteItemActivity extends AppCompatActivity {
         json = getIntent().getStringExtra(FoodItem.EXTRA);
         foodItem = new Gson().fromJson(json, FoodItem.class);
         // Show the user what they're deleting
-        ((TextView)findViewById(R.id.txtFoodItem)).setText((foodItem == null) ? "No food item selected." : foodItem.toString());
+        ((TextView)findViewById(R.id.txtFoodItem)).setText(
+                (foodItem == null) ? "No food item selected." :
+                        String.format("%s%nExpires %s", foodItem.toString(), Settings.getSettings()
+                                .getDateFormat().format(foodItem.getExpirationDate()))
+        );
     }
 
     /**

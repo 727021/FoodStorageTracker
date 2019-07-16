@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ViewItemActivity extends AppCompatActivity {
@@ -32,7 +31,7 @@ public class ViewItemActivity extends AppCompatActivity {
 
         String displayText = "Name: " + name + "\n" +
                 "Category: " + category + "\n" +
-                "Expiration Date: " + new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]).format(expirationDate) + "\n" +
+                "Expiration Date: " + Settings.getSettings().getDateFormat().format(expirationDate) + "\n" +
                 "Amount: " + quantity + " " + units.getName().toLowerCase() + ((quantity > 1 && units != Unit.COUNT) ? "s" : "");
 
         TextView textView = findViewById(R.id.tvViewItem);

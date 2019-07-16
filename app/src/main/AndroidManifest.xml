@@ -10,8 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ModifyItemActivity"
-            android:parentActivityName=".MenuActivity"></activity>
+        <activity
+            android:name=".ModifyItemActivity"
+            android:label="@string/activity_modifyItem_title"
+            android:parentActivityName=".MenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/activity_settings_title"

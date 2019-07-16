@@ -2,15 +2,19 @@ package com.fstracker.foodstoragetracker;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +64,14 @@ public class AddItemActivity extends AppCompatActivity {
                         year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
+
+                final String[] format = Settings.getSettings().getDateFormat().toPattern().toLowerCase().split("/");
+                char[] ymdOrder = { 'd', 'm', 'y' };
+                int i = 0;
+                for (String s : format) {
+                    ymdOrder[i++] = s.charAt(0);
+                }
+                orderDate(dialog, ymdOrder);
             }
         });
 
@@ -94,7 +106,6 @@ public class AddItemActivity extends AppCompatActivity {
                  int month2 = c.get(Calendar.MONTH);
                  int year2 = c.get(Calendar.YEAR);
                 String date2 = (month2 +1) + "/" + day2 + "/" + year2;
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
                 if(date.compareTo(date2) < 0){
                     textViewName.requestFocus();
@@ -111,6 +122,11 @@ public class AddItemActivity extends AppCompatActivity {
                 else {
                     textViewName.requestFocus();
                     textViewName.setError(null);
+                    try {
+                        date = Settings.getSettings().getDateFormat().format(new SimpleDateFormat("MM/dd/yyyy").parse(date));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     mDisplayDate.setText(date);
 
                     Log.d(TAG, "The date1 equals: " + date);
@@ -127,9 +143,8 @@ public class AddItemActivity extends AppCompatActivity {
                 final String name = nameEditText.getText().toString();
                 final String count = countText.getText().toString();
                 final String textv = textViewName.getText().toString();
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
                 Calendar c = Calendar.getInstance();
-                String date = sdf.format(c.getTime());
+                String date = Settings.getSettings().getDateFormat().format(c.getTime());
                 Log.d(TAG, "The date equals: " + date);
                 Log.d(TAG, "The tv text equals: " + textv);
                 if(textv == date){
@@ -146,17 +161,10 @@ public class AddItemActivity extends AppCompatActivity {
                     textViewName.requestFocus();
                     textViewName.setError("Field Cannot Be Empty");
                 }
-
                 else if(count.length() == 0) {
                     countText.requestFocus();
                     countText.setError("Field Cannot Be Empty");
                 }
-                // DO WE WANT THE FOOD NAME WITHOUT NUMBERS?
-                    /*else if(!Name.matches("[a-zA-Z]+"))
-                {
-                    nameEditText.requestFocus();
-                    nameEditText.setError("ENTER ONLY ALPHABETICAL CHARACTER");
-                }*/
                 else {
                     openAllItemActivity();
                 }
@@ -167,12 +175,11 @@ public class AddItemActivity extends AppCompatActivity {
     public void openAllItemActivity() {
         // Create a FoodItem
         FoodItem foodItem = new FoodItem();
-        SimpleDateFormat sdf = new SimpleDateFormat(getResources().getStringArray(R.array.date_formats)[Settings.getSettings().dateFormat]);
         foodItem.setName(((TextView)findViewById(R.id.editText)).getText().toString());
         Category category = (Category)((Spinner)findViewById(R.id.spnSearchCategory2)).getSelectedItem();
         foodItem.setCategory(category);
         try {
-            foodItem.setExpirationDate(sdf.parse(((TextView)findViewById(R.id.tvDate)).getText().toString()));
+            foodItem.setExpirationDate(Settings.getSettings().getDateFormat().parse(((TextView)findViewById(R.id.tvDate)).getText().toString()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -193,5 +200,57 @@ public class AddItemActivity extends AppCompatActivity {
         startActivity(intent);
         Log.d(TAG, "Saved Items: " + json);
         Toast.makeText(getApplicationContext(), String.format("Saved %s", foodItem), Toast.LENGTH_LONG).show();
+    }
+
+    // From https://stackoverflow.com/questions/33624824/how-to-change-the-order-of-the-numberpickers-in-datepickerdialog
+    private static final int SPINNER_COUNT = 3;
+
+    private void orderDate(DatePickerDialog dialog, char[] ymdOrder) {
+        if(!dialog.isShowing()) {
+            throw new IllegalStateException("Dialog must be showing");
+        }
+
+        final int idYear = Resources.getSystem().getIdentifier("year", "id", "android");
+        final int idMonth = Resources.getSystem().getIdentifier("month", "id", "android");
+        final int idDay = Resources.getSystem().getIdentifier("day", "id", "android");
+        final int idLayout = Resources.getSystem().getIdentifier("pickers", "id", "android");
+
+        final NumberPicker spinnerYear = dialog.findViewById(idYear);
+        final NumberPicker spinnerMonth = dialog.findViewById(idMonth);
+        final NumberPicker spinnerDay = dialog.findViewById(idDay);
+        final LinearLayout layout = dialog.findViewById(idLayout);
+
+        layout.removeAllViews();
+        for (int i = 0; i < SPINNER_COUNT; i++) {
+            switch (ymdOrder[i]) {
+                case 'y':
+                    layout.addView(spinnerYear);
+                    setImeOptions(spinnerYear, i);
+                    break;
+                case 'm':
+                    layout.addView(spinnerMonth);
+                    setImeOptions(spinnerMonth, i);
+                    break;
+                case 'd':
+                    layout.addView(spinnerDay);
+                    setImeOptions(spinnerDay, i);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid char[] ymdOrder");
+            }
+        }
+    }
+
+    private void setImeOptions(NumberPicker spinner, int spinnerIndex) {
+        final int imeOptions;
+        if (spinnerIndex < SPINNER_COUNT - 1) {
+            imeOptions = EditorInfo.IME_ACTION_NEXT;
+        }
+        else {
+            imeOptions = EditorInfo.IME_ACTION_DONE;
+        }
+        int idPickerInput = Resources.getSystem().getIdentifier("numberpicker_input", "id", "android");
+        TextView input = spinner.findViewById(idPickerInput);
+        input.setImeOptions(imeOptions);
     }
 }
