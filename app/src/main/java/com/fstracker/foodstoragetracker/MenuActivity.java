@@ -1,8 +1,13 @@
 package com.fstracker.foodstoragetracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,9 +37,28 @@ public class MenuActivity extends AppCompatActivity {
         String toast = getIntent().getStringExtra(EXTRA_TOAST);
         if (toast != null && !toast.trim().equals("")) {
             Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
-        }
-    }
 
+        }
+
+    }
+    // create the notification
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(AddItemActivity.CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+
+    }
     /**
      * Open AddItemActivity.
      * @param v The button that was clicked.

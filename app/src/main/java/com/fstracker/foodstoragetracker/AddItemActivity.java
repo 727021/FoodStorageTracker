@@ -1,6 +1,7 @@
 package com.fstracker.foodstoragetracker;
 
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.gson.Gson;
 
@@ -37,6 +40,7 @@ public class AddItemActivity extends AppCompatActivity {
     private EditText nameEditText;
     private EditText countText;
     private TextView textViewName;
+    public static String CHANNEL_ID = "1234";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +133,20 @@ public class AddItemActivity extends AppCompatActivity {
                     }
                     mDisplayDate.setText(date);
 
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                            .setSmallIcon(R.drawable.ic_warning_white_24dp)
+                            .setContentTitle("My notification")
+                            .setContentText("Much longer text that cannot fit one line...")
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText("Much longer text that cannot fit one line..."))
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+
+                    //now we create the tap action
+                    // Create an explicit intent for an Activity in your app
+                    //Intent intent = new Intent(this, AlertDetails.class);
+
+
                     Log.d(TAG, "The date1 equals: " + date);
                     Log.d(TAG, "The date2 equals: " + date2);
 
@@ -167,6 +185,7 @@ public class AddItemActivity extends AppCompatActivity {
                 }
                 else {
                     openAllItemActivity();
+
                 }
             }
         });
@@ -200,7 +219,24 @@ public class AddItemActivity extends AppCompatActivity {
         startActivity(intent);
         Log.d(TAG, "Saved Items: " + json);
         Toast.makeText(getApplicationContext(), String.format("Saved %s", foodItem), Toast.LENGTH_LONG).show();
+
+        // set the notification
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+
+        NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext(), AddItemActivity.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_warning_white_24dp)
+                .setContentTitle("My notification")
+                .setContentText("Hello World!")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+                builder2.build();
     }
+
 
     // From https://stackoverflow.com/questions/33624824/how-to-change-the-order-of-the-numberpickers-in-datepickerdialog
     private static final int SPINNER_COUNT = 3;

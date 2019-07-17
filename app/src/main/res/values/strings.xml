@@ -26,4 +26,6 @@
     <string name="clear_database_button_text">Clear Database</string>
     <string name="bug_report_button">Report a Bug</string>
     <string name="button_reset_settings_text">Reset</string>
+    <string name="channel_name">foodstoragetracker</string>
+    <string name="channel_description">foodstoragetracker</string>
 </resources>
