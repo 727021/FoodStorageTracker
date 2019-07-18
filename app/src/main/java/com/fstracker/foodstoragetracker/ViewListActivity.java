@@ -20,12 +20,15 @@ public class ViewListActivity extends AppCompatActivity implements ViewListRecyc
     public static final String EXTRA_SEARCH = "com.fstracker.foodstoragetracker.SEARCH";
     public static final String EXTRA_CATEGORY = "com.fstracker.foodstoragetracker.CATEGORY";
 
+    private Category category;
+    private Spinner mySpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
 
-        Spinner mySpinner = findViewById(R.id.categorySpinner);
+        mySpinner = findViewById(R.id.categorySpinner);
         mySpinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Category.values()));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -33,18 +36,29 @@ public class ViewListActivity extends AppCompatActivity implements ViewListRecyc
         // use a linear layout manager
         recyclerView.setLayoutManager(layoutManager);
 
+        String categoryString = getIntent().getExtras().getString(EXTRA_CATEGORY);
+
+        for (Category category : Category.values()) {
+            if (category.toString().equals(categoryString)) {
+                this.category = category;
+            }
+        }
+
+        System.out.println(category.toString());
         // specify an adapter (see also next example)
-        final ViewListRecyclerAdapter mAdapter = new ViewListRecyclerAdapter(StorageManager.getLocalStorage().getItemsByCategory(Category.ALL), this);
+        final ViewListRecyclerAdapter mAdapter = new ViewListRecyclerAdapter(StorageManager.getLocalStorage().getItemsByCategory(category), this);
         recyclerView.setAdapter(mAdapter);
 
-        //Create adapter for recyclerview, that allows us toadd/replace itens
+        mySpinner.setSelection(Category.indexOf(category));
+
+        //Create adapter for RecyclerView, that allows us to add/replace items
         //https://developer.android.com/guide/topics/ui/layout/recyclerview
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //A callback with the position selected
                 Category selected = Category.values()[position];
-                //Here we should update the  list by /StorageManager.getLocalStorage().getItemsByCategory()
+                //Update the  list by /StorageManager.getLocalStorage().getItemsByCategory()
                 List<FoodItem> updatedList =  (selected == Category.ALL) ? StorageManager.getLocalStorage().getAllItems() : StorageManager.getLocalStorage().getItemsByCategory(selected);
                 mAdapter.updateList(updatedList);
                 mAdapter.notifyDataSetChanged();
