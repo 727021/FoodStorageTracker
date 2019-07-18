@@ -1,6 +1,7 @@
 package com.fstracker.foodstoragetracker;
 
 import android.app.DatePickerDialog;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -229,12 +230,19 @@ public class AddItemActivity extends AppCompatActivity {
                 .setContentTitle("My notification")
                 .setContentText("Hello World!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
-                builder2.build();
+              //Notification notification =  builder2.build();
+              //MenuActivity menu = null;
+              //menu.createNotificationChannel();
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        int number  = 1;
+        notificationManager.notify(number, builder2.build());
+
+
     }
 
 
