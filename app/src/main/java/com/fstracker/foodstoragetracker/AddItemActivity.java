@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -28,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.allyants.notifyme.NotifyMe;
 import com.google.gson.Gson;
 
 import java.text.ParseException;
@@ -46,6 +48,10 @@ public class AddItemActivity extends AppCompatActivity {
     private EditText countText;
     private TextView textViewName;
     public static String CHANNEL_ID = "1";
+    public int year;
+    public int month;
+    public int day;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +68,9 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+                year = cal.get(Calendar.YEAR);
+                month = cal.get(Calendar.MONTH);
+                day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
                         AddItemActivity.this,
@@ -108,13 +114,14 @@ public class AddItemActivity extends AppCompatActivity {
 
                 Log.d(TAG, "onDateSet: mm/dd/yyy " + month + "/" + dayOfMonth + "/" + year);
                 //the variable date has the date.
-                String date = month + "/" + dayOfMonth + "/" + year;
+                 String date = month + "/" + dayOfMonth + "/" + year;
 
                 Calendar c = Calendar.getInstance();
                  int day2 = c.get(Calendar.DAY_OF_MONTH);
                  int month2 = c.get(Calendar.MONTH);
                  int year2 = c.get(Calendar.YEAR);
                 String date2 = (month2 +1) + "/" + day2 + "/" + year2;
+
 
                 if(date.compareTo(date2) < 0){
                     textViewName.requestFocus();
@@ -138,13 +145,16 @@ public class AddItemActivity extends AppCompatActivity {
                     }
                     mDisplayDate.setText(date);
 
+
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                             .setSmallIcon(R.drawable.ic_warning_white_24dp)
                             .setContentTitle("My notification")
                             .setContentText("Much longer text that cannot fit one line...")
+
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText("Much longer text that cannot fit one line..."))
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
 
 
                     //now we create the tap action
@@ -167,7 +177,7 @@ public class AddItemActivity extends AppCompatActivity {
                 final String count = countText.getText().toString();
                 final String textv = textViewName.getText().toString();
                 Calendar c = Calendar.getInstance();
-                String date = Settings.getSettings().getDateFormat().format(c.getTime());
+                 String date = Settings.getSettings().getDateFormat().format(c.getTime());
                 Log.d(TAG, "The date equals: " + date);
                 Log.d(TAG, "The tv text equals: " + textv);
                 if(textv == date){
@@ -226,8 +236,103 @@ public class AddItemActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), String.format("Saved %s", foodItem), Toast.LENGTH_LONG).show();
 
         // set the notification
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+        // best notification
+        Calendar notiCal = Calendar.getInstance();
+        final String textv = textViewName.getText().toString();
+        int month2 = Integer.parseInt(textv.substring(0,2));
+        int day2 = Integer.parseInt(textv.substring(3,5));
+        int Year2 = Integer.parseInt(textv.substring(6,10));
+        // this is so the teacher test  the notification  will call a week before expire.
+        if (month2 == month && Year2 == year && day2 == day + 1 || day2 == day +2 || day2 == day +3 || day2 == day +4
+                || day2 == day +5 || day2 == day +6 || day2 == day +7) {
+            notiCal.set(Calendar.YEAR, year);
+            notiCal.set(Calendar.MONTH, month);
+            notiCal.set(Calendar.DAY_OF_MONTH, day);
+
+
+            Log.d(TAG, "The  notification date is " + textv);
+            Log.d(TAG, "The  notification date is " + month2);
+            Log.d(TAG, "The  notification date is " + day2);
+            Log.d(TAG, "The  notification date is " + Year2);
+            createNotificationChannel();
+            //Intent intent2 = new Intent(this, ViewItemActivity.class);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext(), AddItemActivity.CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_warning_white_24dp)
+                    .setContentTitle("Food Storage Tracker ")
+                     .setContentText("The item " + nameEditText.getText().toString() + " will expire in one week")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+                    // Set the intent that will fire when the user taps the notification
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent);
+
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            int number  = 2;
+
+            notificationManager.notify(number, builder2.build());
+
+            //Notification notification =  builder2.build();
+            //MenuActivity menu = null;
+            //menu.createNotificationChannel();
+
+
+
+
+            /* working
+            NotifyMe notifyMe = new NotifyMe.Builder(getApplicationContext())
+                    .title("Food Storage Tracker ")
+                    .content("The item " + nameEditText.getText().toString() + " will expire in one week")
+                    .large_icon(R.drawable.ic_check_circle)
+
+                    .time(notiCal)
+                    .addAction(new Intent(), "Snooze", false)
+                    .key("test")
+                    .addAction(new Intent(), "Dismiss", true, false)
+                    .addAction(new Intent(), "Done")
+                    .small_icon(R.drawable.ic_warning_white_24dp)
+
+                    .build();
+
+*/
+        }
+        else
+        if (day2 < 7 && month >1) {
+            day2 = 30 - day2;
+            month2 = month2 -1;}
+        else if (day2 < 7 && month == 1) {
+            day2 = 30 - day2;
+            month2 = 12;
+        }
+            notiCal.set(Calendar.YEAR, Year2);
+            notiCal.set(Calendar.MONTH, month2);
+            notiCal.set(Calendar.DAY_OF_MONTH, day2);
+
+
+            Log.d(TAG, "The  notification date is " + textv);
+            Log.d(TAG, "The  notification date is " + month2);
+            Log.d(TAG, "The  notification date is " + day2);
+            Log.d(TAG, "The  notification date is " + Year2);
+
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+            NotifyMe notifyMe = new NotifyMe.Builder(getApplicationContext())
+                    .title("Food Storage Tracker ")
+                    .content("The item " + nameEditText.getText().toString() + " will expire in one week")
+                    .large_icon(R.drawable.ic_check_circle)
+
+                    .time(notiCal)
+                    .addAction(new Intent(), "Snooze", false)
+                    .key("test")
+                    .addAction(new Intent(), "Dismiss", true, false)
+                    .addAction(new Intent(), "Done")
+                    .small_icon(R.drawable.ic_warning_white_24dp)
+
+                    .build();
+
+/*
 /* working
         NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext(), AddItemActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_warning_white_24dp)
@@ -292,7 +397,7 @@ public class AddItemActivity extends AppCompatActivity {
         mNotificationManager.notify(0, mBuilder.build());
 mNotificationManager.notify(foodItem.getName(), 0, mBuilder.build());
 */
-        displayNotification();
+      //  displayNotification();
     }
 
 
@@ -349,13 +454,20 @@ mNotificationManager.notify(foodItem.getName(), 0, mBuilder.build());
     }
 
     public void displayNotification(){
-
         createNotificationChannel();
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), AddItemActivity.CHANNEL_ID);
         builder.setSmallIcon(R.drawable.ic_warning_white_24dp);
-        builder.setContentTitle("Simple Notification");
-        builder.setContentText("this is a simple notification");
-        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setContentTitle("Food Storage Tracker ");
+        builder.setContentText("The item " + nameEditText.getText().toString() +" will expire in one week");
+        //builder.setContentInfo("The following item " + nameEditText.getText().toString() +" will expire in one week");
+
+
+
+
+
+
+        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
         notificationManagerCompat.notify(1, builder.build());
@@ -366,7 +478,7 @@ mNotificationManager.notify(foodItem.getName(), 0, mBuilder.build());
 
                 CharSequence name = getString(R.string.channel_name);
                 String description = getString(R.string.channel_description);
-                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                int importance = NotificationManager.IMPORTANCE_HIGH;
                 NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
                 channel.setDescription(description);
                 // Register the channel with the system; you can't change the importance
@@ -375,5 +487,6 @@ mNotificationManager.notify(foodItem.getName(), 0, mBuilder.build());
                 notificationManager.createNotificationChannel(channel);
             }
         }
+
 
 }
