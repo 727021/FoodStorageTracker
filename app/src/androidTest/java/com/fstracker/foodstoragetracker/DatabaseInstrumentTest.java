@@ -27,9 +27,6 @@ import static org.junit.Assert.assertNotNull;
 public class DatabaseInstrumentTest {
     @Test
     public void fillDatabase() {
-        Context appContext = InstrumentationRegistry.getTargetContext();
-        Settings.settings = new Gson().fromJson(appContext.getString(R.string.default_settings_json), Settings.class);
-
         String[] names = {
                 "Apples", "Bananas", "Peaches", "Corn", "Carrots", "Potatoes",
                 "Water", "Milk", "Juice", "Rice", "Flour", "Sugar"

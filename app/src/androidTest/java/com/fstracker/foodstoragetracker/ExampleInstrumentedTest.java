@@ -33,7 +33,6 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void fillStorage() {
-        Settings.settings = new Gson().fromJson(InstrumentationRegistry.getTargetContext().getString(R.string.default_settings_json), Settings.class);
         FoodItem f0 = new FoodItem();
         FoodItem f1 = new FoodItem();
         FoodItem f2 = new FoodItem();

@@ -126,7 +126,7 @@ public class LocalStorage implements IStorageManager {
         updateList();
         List<FoodItem> result = new ArrayList<>();
         for (FoodItem item : allItems) {
-            if (item.getName().equals(name))
+            if (item.getName().toLowerCase().equals(name.toLowerCase()))
                 result.add(item);
         }
         return result;
