@@ -2,11 +2,14 @@ package com.fstracker.foodstoragetracker;
 
 import android.app.DatePickerDialog;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,15 +38,16 @@ import java.util.List;
 
 public class AddItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
+    private NotificationManager mNotificationManager;
 
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private EditText nameEditText;
     private EditText countText;
     private TextView textViewName;
-    public static String CHANNEL_ID = "1234";
+    public static String CHANNEL_ID = "1";
 
-    @Override 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
@@ -224,25 +228,71 @@ public class AddItemActivity extends AppCompatActivity {
         // set the notification
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-
+/* working
         NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext(), AddItemActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_warning_white_24dp)
                 .setContentTitle("My notification")
                 .setContentText("Hello World!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
                 // Set the intent that will fire when the user taps the notification
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
+                .setContentIntent(pendingIntent);
+                //.setAutoCancel(true);
 
               //Notification notification =  builder2.build();
               //MenuActivity menu = null;
               //menu.createNotificationChannel();
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        int number  = 1;
+        int number  = 2;
+
         notificationManager.notify(number, builder2.build());
 
+*/
+/* working 2
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(getApplicationContext(), "notify_001");
+        Intent ii = new Intent(getApplicationContext(), AddItemActivity.class);
+        PendingIntent pendingIntent2 = PendingIntent.getActivity(getApplicationContext(), 0, ii, 0);
 
+        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+        //bigText.bigText(verseurl);
+        bigText.setBigContentTitle("Food Storage Warning");
+        bigText.setSummaryText("The following product will expire soon");
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
+        mBuilder.setContentTitle("This porduct will expire soon");
+        mBuilder.setContentText("Vivo pues ");
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        mBuilder.setStyle(bigText);
+
+        mNotificationManager =
+                (NotificationManager) getApplicationContext().getSystemService(getApplicationContext().NOTIFICATION_SERVICE);
+
+// === Removed some obsoletes
+
+
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "Your_channel_id";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(AddItemActivity.CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+            mBuilder.setChannelId(channelId);
+            mNotificationManager.notify(0, mBuilder.build());
+
+        }
+
+        mNotificationManager.notify(0, mBuilder.build());
+mNotificationManager.notify(foodItem.getName(), 0, mBuilder.build());
+*/
+        displayNotification();
     }
 
 
@@ -297,4 +347,33 @@ public class AddItemActivity extends AppCompatActivity {
         TextView input = spinner.findViewById(idPickerInput);
         input.setImeOptions(imeOptions);
     }
+
+    public void displayNotification(){
+
+        createNotificationChannel();
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_warning_white_24dp);
+        builder.setContentTitle("Simple Notification");
+        builder.setContentText("this is a simple notification");
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(1, builder.build());
+        }
+        private  void createNotificationChannel()
+        {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                CharSequence name = getString(R.string.channel_name);
+                String description = getString(R.string.channel_description);
+                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+                channel.setDescription(description);
+                // Register the channel with the system; you can't change the importance
+                // or other notification behaviors after this
+                NotificationManager notificationManager =(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+
 }
