@@ -320,7 +320,7 @@ public class AddItemActivity extends AppCompatActivity {
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
             NotifyMe notifyMe = new NotifyMe.Builder(getApplicationContext())
                     .title("Food Storage Tracker ")
-                    .content("The item " + nameEditText.getText().toString() + " will expire in one week")
+                    .content("The item " + nameEditText.getText().toString() + " will expire in one Month")
                     .large_icon(R.drawable.ic_check_circle)
 
                     .time(notiCal)
@@ -332,7 +332,7 @@ public class AddItemActivity extends AppCompatActivity {
 
                     .build();
 
-/*
+
 /* working
         NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext(), AddItemActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_warning_white_24dp)
