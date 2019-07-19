@@ -248,6 +248,7 @@ public class AddItemActivity extends AppCompatActivity {
             notiCal.set(Calendar.YEAR, year);
             notiCal.set(Calendar.MONTH, month);
             notiCal.set(Calendar.DAY_OF_MONTH, day);
+            int totalDay = day2 -day;
 
 
             Log.d(TAG, "The  notification date is " + textv);
@@ -261,7 +262,7 @@ public class AddItemActivity extends AppCompatActivity {
             NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext(), AddItemActivity.CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_warning_white_24dp)
                     .setContentTitle("Food Storage Tracker ")
-                     .setContentText("The item " + nameEditText.getText().toString() + " will expire in one week")
+                     .setContentText("The item " + nameEditText.getText().toString() + " will expire in " + totalDay + " days " )
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
                     // Set the intent that will fire when the user taps the notification
