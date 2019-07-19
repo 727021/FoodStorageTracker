@@ -243,7 +243,7 @@ public class AddItemActivity extends AppCompatActivity {
         int day2 = Integer.parseInt(textv.substring(3,5));
         int Year2 = Integer.parseInt(textv.substring(6,10));
         // this is so the teacher test  the notification  will call a week before expire.
-        if (month2 == month && Year2 == year && day2 == day + 1 || day2 == day +2 || day2 == day +3 || day2 == day +4
+        if (month2 == month && Year2 == year && day2 == day || day2 == day + 1 || day2 == day +2 || day2 == day +3 || day2 == day +4
                 || day2 == day +5 || day2 == day +6 || day2 == day +7) {
             notiCal.set(Calendar.YEAR, year);
             notiCal.set(Calendar.MONTH, month);
