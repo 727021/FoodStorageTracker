@@ -76,7 +76,7 @@ public class MenuActivity extends AppCompatActivity {
         // Tell ViewListActivity to display all items that match a search String
         String search = ((TextView)findViewById(R.id.txtSearchName)).getText().toString();
         Log.d(TAG, String.format("Open ViewListActivity and display matching items for \"%s\"", search));
-        Intent intent = new Intent(getApplicationContext(), ViewListActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ViewListByNameActivity.class);
         intent.putExtra(ViewListActivity.EXTRA_SEARCH, search);
         startActivity(intent);
     }
