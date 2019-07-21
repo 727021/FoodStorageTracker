@@ -53,7 +53,7 @@ public class ModifyItemActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.editText4);
         countText = findViewById(R.id.editText2);
         textViewDate = findViewById(R.id.tvDate2);
-
+ 
         // This will create the text View for the Expiration Date
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
