@@ -259,26 +259,7 @@ public class AddItemActivity extends AppCompatActivity {
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
             int number  = 2;
-
             notificationManager.notify(number, builder2.build());
-
-            //Notification notification =  builder2.build();
-            //MenuActivity menu = null;
-            //menu.createNotificationChannel();
-
-            /* working
-            NotifyMe notifyMe = new NotifyMe.Builder(getApplicationContext())
-                    .title("Food Storage Tracker ")
-                    .content("The item " + nameEditText.getText().toString() + " will expire in one week")
-                    .large_icon(R.drawable.ic_check_circle)
-                    .time(notiCal)
-                    .addAction(new Intent(), "Snooze", false)
-                    .key("test")
-                    .addAction(new Intent(), "Dismiss", true, false)
-                    .addAction(new Intent(), "Done")
-                    .small_icon(R.drawable.ic_warning_white_24dp)
-                    .build();
-*/
         }
         else
         if (day2 < 7 && month >1) {
@@ -299,7 +280,7 @@ public class AddItemActivity extends AppCompatActivity {
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-            NotifyMe notifyMe = new NotifyMe.Builder(getApplicationContext())
+                     NotifyMe notifyMe = new NotifyMe.Builder(getApplicationContext())
                     .title("Food Storage Tracker ")
                     .content("The item " + nameEditText.getText().toString() + " will expire in one Month")
                     .large_icon(R.drawable.ic_check_circle)
@@ -311,68 +292,7 @@ public class AddItemActivity extends AppCompatActivity {
                     .small_icon(R.drawable.ic_warning_white_24dp)
                     .build();
 
-/* working
-        NotificationCompat.Builder builder2 = new NotificationCompat.Builder(getApplicationContext(), AddItemActivity.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_warning_white_24dp)
-                .setContentTitle("My notification")
-                .setContentText("Hello World!")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                // Set the intent that will fire when the user taps the notification
-                .setContentIntent(pendingIntent);
-                //.setAutoCancel(true);
-              //Notification notification =  builder2.build();
-              //MenuActivity menu = null;
-              //menu.createNotificationChannel();
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        int number  = 2;
-
-        notificationManager.notify(number, builder2.build());
-*/
-/* working 2
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(getApplicationContext(), "notify_001");
-        Intent ii = new Intent(getApplicationContext(), AddItemActivity.class);
-        PendingIntent pendingIntent2 = PendingIntent.getActivity(getApplicationContext(), 0, ii, 0);
-
-        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-        //bigText.bigText(verseurl);
-        bigText.setBigContentTitle("Food Storage Warning");
-        bigText.setSummaryText("The following product will expire soon");
-
-        mBuilder.setContentIntent(pendingIntent);
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round);
-        mBuilder.setContentTitle("This porduct will expire soon");
-        mBuilder.setContentText("Vivo pues ");
-        mBuilder.setPriority(Notification.PRIORITY_MAX);
-        mBuilder.setStyle(bigText);
-
-        mNotificationManager =
-                (NotificationManager) getApplicationContext().getSystemService(getApplicationContext().NOTIFICATION_SERVICE);
-
-// === Removed some obsoletes
-
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId = "Your_channel_id";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(AddItemActivity.CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-            mBuilder.setChannelId(channelId);
-            mNotificationManager.notify(0, mBuilder.build());
-        }
-
-        mNotificationManager.notify(0, mBuilder.build());
-mNotificationManager.notify(foodItem.getName(), 0, mBuilder.build());
-*/
-      //  displayNotification();
     }
-
 
     // From https://stackoverflow.com/questions/33624824/how-to-change-the-order-of-the-numberpickers-in-datepickerdialog
     private static final int SPINNER_COUNT = 3;
@@ -381,17 +301,14 @@ mNotificationManager.notify(foodItem.getName(), 0, mBuilder.build());
         if(!dialog.isShowing()) {
             throw new IllegalStateException("Dialog must be showing");
         }
-
         final int idYear = Resources.getSystem().getIdentifier("year", "id", "android");
         final int idMonth = Resources.getSystem().getIdentifier("month", "id", "android");
         final int idDay = Resources.getSystem().getIdentifier("day", "id", "android");
         final int idLayout = Resources.getSystem().getIdentifier("pickers", "id", "android");
-
         final NumberPicker spinnerYear = dialog.findViewById(idYear);
         final NumberPicker spinnerMonth = dialog.findViewById(idMonth);
         final NumberPicker spinnerDay = dialog.findViewById(idDay);
         final LinearLayout layout = dialog.findViewById(idLayout);
-
         layout.removeAllViews();
         for (int i = 0; i < SPINNER_COUNT; i++) {
             switch (ymdOrder[i]) {
@@ -426,19 +343,6 @@ mNotificationManager.notify(foodItem.getName(), 0, mBuilder.build());
         input.setImeOptions(imeOptions);
     }
 
-    public void displayNotification() {
-        createNotificationChannel();
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), AddItemActivity.CHANNEL_ID);
-        builder.setSmallIcon(R.drawable.ic_warning_white_24dp);
-        builder.setContentTitle("Food Storage Tracker ");
-        builder.setContentText("The item " + nameEditText.getText().toString() +" will expire in one week");
-        //builder.setContentInfo("The following item " + nameEditText.getText().toString() +" will expire in one week");
-
-        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-        notificationManagerCompat.notify(1, builder.build());
-    }
 
     private  void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
