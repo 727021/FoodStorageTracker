@@ -29,6 +29,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+/**
+ * This activity will ModifyItems created on the food storage application {@link FoodItem}.
+ * after modified the food item the user will be transfer to {@link ViewItemActivity}.
+ */
 
 public class ModifyItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
