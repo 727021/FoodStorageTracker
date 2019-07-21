@@ -21,7 +21,8 @@ public class ViewItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item);
-        AppCompatDelegate.setDefaultNightMode((Settings.getSettings().darkMode) ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode((Settings.getSettings().darkMode) ?
+            AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 
         String foodItemString = getIntent().getStringExtra(FoodItem.EXTRA);
         FoodItem foodItem = new Gson().fromJson(foodItemString, FoodItem.class);
@@ -34,8 +35,10 @@ public class ViewItemActivity extends AppCompatActivity {
 
         String displayText = "Name: " + name + "\n" +
                 "Category: " + category + "\n" +
-                "Expiration Date: " + Settings.getSettings().getDateFormat().format(expirationDate) + "\n" +
-                "Amount: " + quantity + " " + units.getName().toLowerCase() + ((quantity > 1 && units != Unit.COUNT) ? "s" : "");
+                "Expiration Date: " +
+                Settings.getSettings().getDateFormat().format(expirationDate) + "\n" +
+                "Amount: " + quantity + " " + units.getName().toLowerCase() +
+                ((quantity > 1 && units != Unit.COUNT) ? "s" : "");
 
         TextView textView = findViewById(R.id.tvViewItem);
         textView.setText(displayText);

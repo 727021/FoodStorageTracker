@@ -21,6 +21,9 @@ public enum Category {
         this.name = name;
     }
 
+    /**
+     * @return The name of a Category as a String.
+     */
     @Override
     public String toString() {
         return this.name;

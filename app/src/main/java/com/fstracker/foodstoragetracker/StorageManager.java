@@ -10,7 +10,9 @@ import java.text.SimpleDateFormat;
 public class StorageManager {
     private StorageManager() {}
 
-    public static SimpleDateFormat storageDateFormat = new SimpleDateFormat(FoodStorageApplication.getInstance().getResources().getStringArray(R.array.date_formats)[0]);
+    public static SimpleDateFormat storageDateFormat =
+        new SimpleDateFormat(FoodStorageApplication.getInstance().getResources()
+            .getStringArray(R.array.date_formats)[0]);
 
     private static LocalStorage localStorage;
 //    private static CloudStorage cloudStorage;

@@ -9,13 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ViewListRecyclerAdapter extends RecyclerView.Adapter<ViewListRecyclerAdapter.MyViewHolder> {
+public class ViewListRecyclerAdapter extends RecyclerView.Adapter
+        <ViewListRecyclerAdapter.MyViewHolder> {
 
     private List<FoodItem> mDataset;
     private OnFoodItemListener mOnFoodItemListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ViewListRecyclerAdapter(List<FoodItem> myDataset, OnFoodItemListener onFoodItemListener) {
+    public ViewListRecyclerAdapter(List<FoodItem> myDataset,
+                                   OnFoodItemListener onFoodItemListener) {
         mDataset = myDataset;
         mOnFoodItemListener = onFoodItemListener;
     }
@@ -44,8 +46,7 @@ public class ViewListRecyclerAdapter extends RecyclerView.Adapter<ViewListRecycl
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ViewListRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                     int viewType) {
+    public ViewListRecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.foodview_list_item, parent, false);

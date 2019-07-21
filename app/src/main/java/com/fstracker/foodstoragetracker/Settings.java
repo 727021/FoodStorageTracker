@@ -19,14 +19,18 @@ public class Settings {
     public static Settings getSettings(boolean isDefault) {
         if (isDefault) {
             if (defaultSettings == null) {
-                defaultSettings = new Gson().fromJson(FoodStorageApplication.getInstance().getApplicationContext().getString(R.string.default_settings_json), Settings.class);
+                defaultSettings = new Gson().fromJson(FoodStorageApplication.getInstance()
+                    .getApplicationContext().getString(R.string.default_settings_json),
+                    Settings.class);
             }
             return defaultSettings;
         }
 
         if (settings == null) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(FoodStorageApplication.getInstance().getApplicationContext());
-            String json = prefs.getString(SETTINGS_KEY, FoodStorageApplication.getInstance().getApplicationContext().getString(R.string.default_settings_json));
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                FoodStorageApplication.getInstance().getApplicationContext());
+            String json = prefs.getString(SETTINGS_KEY, FoodStorageApplication.getInstance()
+                .getApplicationContext().getString(R.string.default_settings_json));
             settings = new Gson().fromJson(json, Settings.class);
         }
         return settings;
@@ -40,6 +44,7 @@ public class Settings {
     public int reminderUnits;
 
     public SimpleDateFormat getDateFormat() {
-        return new SimpleDateFormat(FoodStorageApplication.getInstance().getResources().getStringArray(R.array.date_formats)[dateFormat]);
+        return new SimpleDateFormat(FoodStorageApplication.getInstance().getResources()
+            .getStringArray(R.array.date_formats)[dateFormat]);
     }
 }

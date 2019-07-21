@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -62,9 +63,8 @@ public class DeleteItemActivity extends AppCompatActivity {
         if (foodItem != null) {
             // Actually delete the item
             StorageManager.getLocalStorage().deleteItem(foodItem);
-
-            // Display a toast in MenuActivity
-            intent.putExtra(MenuActivity.EXTRA_TOAST, String.format("Deleted %s", foodItem));
+            // Display a toast
+            Toast.makeText(getApplicationContext(), String.format("Deleted %s", foodItem), Toast.LENGTH_LONG).show();
         }
 
         // Go back to the MenuActivity

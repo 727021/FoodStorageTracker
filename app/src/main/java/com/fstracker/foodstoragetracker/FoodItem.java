@@ -24,7 +24,7 @@ public class FoodItem {
     private Category category;
     private Unit units;
     private double quantity;
-//
+
     public int getId() {
         return id;
     }
@@ -77,10 +77,14 @@ public class FoodItem {
         this.quantity = quantity;
     }
 
+    /**
+     * @return A String representing a FoodItem, formatted as "Quantity units of Name".
+     */
     @NonNull
     @Override
     public String toString() {
-        return String.format("%.1f %s%s of %s", quantity, units.getName().toLowerCase(), (quantity > 1 && units != Unit.COUNT) ? "s" : "", name);
+        return String.format("%.1f %s%s of %s", quantity, units.getName().toLowerCase(),
+            (quantity > 1 && units != Unit.COUNT) ? "s" : "", name);
     }
 
 

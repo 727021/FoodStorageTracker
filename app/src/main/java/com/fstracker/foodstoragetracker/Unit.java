@@ -25,22 +25,31 @@ public enum Unit {
         this.symbol = symbol;
     }
 
+    /**
+     * @return The long name of the Unit.
+     */
     public String getName() { return name; }
 
+    /**
+     * @return The symbol used to represent the Unit.
+     */
     public String getSymbol() {
         return symbol;
     }
 
+    /**
+     * @return A string representation of a Unit, formatted as "Name, (symbol)".
+     */
     @Override
     public String toString() {
         return String.format("%s (%s)", name, symbol);
     }
 
     /**
-     * Find the index of a Unit in Unit.values()
+     * Find the index of a Unit in Unit.values().
      *
-     * @param unit The Unit to find the index of
-     * @return The index of a Unit, or -1
+     * @param unit The Unit to find the index of.
+     * @return The index of a Unit, or -1.
      */
     public static int indexOf(Unit unit) {
         for (int i = 0; i < values().length; i++) {

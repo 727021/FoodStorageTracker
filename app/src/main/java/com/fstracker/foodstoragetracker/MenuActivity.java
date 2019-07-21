@@ -2,11 +2,9 @@ package com.fstracker.foodstoragetracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.NotificationCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,13 +13,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
-    // Used to display a Toast in MenuActivity from another activity.
-    public static final String EXTRA_TOAST = "com.fstracker.foodstoragetracker.MENU_TOAST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +29,8 @@ public class MenuActivity extends AppCompatActivity {
         ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory.setAdapter(adapter);
-
-        // Allow toast to be shown on the MenuActivity by other activities
-        String toast = getIntent().getStringExtra(EXTRA_TOAST);
-        if (toast != null && !toast.trim().equals("")) {
-            Toast.makeText(getApplicationContext(), toast, Toast.LENGTH_LONG).show();
-
-        }
-
     }
+
     // create the notification
     public void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
@@ -59,9 +47,8 @@ public class MenuActivity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-
-
     }
+
     /**
      * Open AddItemActivity.
      * @param v The button that was clicked.
@@ -70,13 +57,13 @@ public class MenuActivity extends AppCompatActivity {
         Log.d(TAG, "Open AddItemActivity");
         startActivity(new Intent(getApplicationContext(), AddItemActivity.class));
     }
-//
+
     /**
      * Open ViewListActivity.
      * @param v The button that was clicked.
      */
     public void searchNameClick(View v) {
-        // Tell ViewListActivity to display all items that match a search String
+        // Tell ViewListByNameActivity to display all items that match a search String
         String search = ((TextView)findViewById(R.id.txtSearchName)).getText().toString();
         Log.d(TAG, String.format("Open ViewListByNameActivity and display matching items for \"%s\"", search));
         Intent intent = new Intent(getApplicationContext(), ViewListByNameActivity.class);

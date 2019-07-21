@@ -30,15 +30,16 @@ public class LocalStorage implements IStorageManager {
     // Keep allItems up to date
     private Date lastUpdate;
     // Minimum time in seconds between updates
-    private final long updateInterval = 20;
+    private final long updateInterval = 30;
     // allItems will only be updated when this is false
     private boolean upToDate;
 
     public LocalStorage() {
         // Initialize local database
-        db = Room.databaseBuilder(FoodStorageApplication.getInstance().getApplicationContext(), FoodItemDatabase.class, dbName)
-                .allowMainThreadQueries()
-                .build();
+        db = Room.databaseBuilder(FoodStorageApplication.getInstance().getApplicationContext(),
+            FoodItemDatabase.class, dbName)
+            .allowMainThreadQueries()
+            .build();
 
         // Only use this for getting items. Saves and deletions should happen on the database.
         lastUpdate = new Date();

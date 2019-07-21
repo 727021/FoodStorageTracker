@@ -14,6 +14,7 @@ public interface IStorageManager {
 
     /**
      * Saves a collection of new or existing FoodItem objects to the database.
+     *
      * @param items A list of FoodItem objects to be saved.
      * @return The number of FoodItems saved or updated.
      */
@@ -21,6 +22,7 @@ public interface IStorageManager {
 
     /**
      * Saves a single FoodItem object to the database.
+     *
      * @param item The FoodItem object to save.
      * @return The number of FoodItems saved or updated (0 or 1).
      */
@@ -28,6 +30,7 @@ public interface IStorageManager {
 
     /**
      * Delete a collection of FoodItem objects from the database.
+     *
      * @param items A list of FoodItem objects to be deleted.
      * @return The number of FoodItems deleted.
      */
@@ -35,6 +38,7 @@ public interface IStorageManager {
 
     /**
      * Delete a single FoodItem object from the database.
+     *
      * @param item The FoodItem object to be deleted.
      * @return The number of FoodItems deleted (0 or 1).
      */
@@ -42,13 +46,15 @@ public interface IStorageManager {
 
     /**
      * Get a FoodItem object from the database by ID.
-     * @param id The ID of the FoodItem to search for
+     *
+     * @param id The ID of the FoodItem to search for.
      * @return The FoodItem with the given id, or null if none is found.
      */
     FoodItem getItemById(int id);
 
     /**
      * Get a collection of FoodItems objects with a given name.
+     *
      * @param name The name to search for.
      * @return A list of FoodItems with the given name.
      */
@@ -56,6 +62,7 @@ public interface IStorageManager {
 
     /**
      * Get all FoodItem objects with a certain category.
+     *
      * @param category The category to search for.
      * @return A list of all FoodItems in the given category.
      */

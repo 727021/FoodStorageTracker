@@ -10,13 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
-public class ViewListByNameActivity extends AppCompatActivity implements ViewListRecyclerAdapter.OnFoodItemListener {
+public class ViewListByNameActivity extends AppCompatActivity implements
+    ViewListRecyclerAdapter.OnFoodItemListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list_by_name);
-        AppCompatDelegate.setDefaultNightMode((Settings.getSettings().darkMode) ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode((Settings.getSettings().darkMode) ?
+            AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 
         // Create a linear layout manager for the RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -34,7 +36,8 @@ public class ViewListByNameActivity extends AppCompatActivity implements ViewLis
         final ViewListRecyclerAdapter mAdapter;
 
         // Set the adapter to view all items with the searched name
-        mAdapter = new ViewListRecyclerAdapter(StorageManager.getLocalStorage().getItemsByName(searchString), this);
+        mAdapter = new ViewListRecyclerAdapter(StorageManager.getLocalStorage()
+            .getItemsByName(searchString), this);
 
         // Attach the adapter to the RecyclerView
         recyclerView.setAdapter(mAdapter);
@@ -46,7 +49,8 @@ public class ViewListByNameActivity extends AppCompatActivity implements ViewLis
         Intent intent = new Intent(this, ViewItemActivity.class);
 
         // Get the clicked FoodItem from the clicked position
-        FoodItem item = ((ViewListRecyclerAdapter)((RecyclerView)findViewById(R.id.rvItemsByName)).getAdapter()).getItem(position);
+        FoodItem item = ((ViewListRecyclerAdapter)((RecyclerView)findViewById(R.id.rvItemsByName))
+            .getAdapter()).getItem(position);
 
         // Save the FoodItem to shared preferences
         intent.putExtra(FoodItem.EXTRA, new Gson().toJson(item));

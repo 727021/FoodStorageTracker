@@ -33,26 +33,25 @@ import java.util.List;
 public class ModifyItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
 
-    private TextView mDisplayDate2;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private EditText nameEditText;
     private EditText countText;
     private FoodItem foodItem;
-    private TextView textViewName;
+    private TextView textViewDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_item);
-        AppCompatDelegate.setDefaultNightMode((Settings.getSettings().darkMode) ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode((Settings.getSettings().darkMode) ?
+            AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 
         nameEditText = findViewById(R.id.editText4);
         countText = findViewById(R.id.editText2);
-        textViewName= findViewById(R.id.tvDate2);
+        textViewDate = findViewById(R.id.tvDate2);
 
         // This will create the text View for the Expiration Date
-        mDisplayDate2 = findViewById(R.id.tvDate2);
-        mDisplayDate2.setOnClickListener(new View.OnClickListener() {
+        textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
@@ -61,14 +60,13 @@ public class ModifyItemActivity extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog2 = new DatePickerDialog(
-                        ModifyItemActivity.this,
-                        android.R.style.Theme_Holo_Dialog_MinWidth,
-                        mDateSetListener,
-                        year, month, day);
+                    ModifyItemActivity.this, android.R.style.Theme_Holo_Dialog_MinWidth,
+                    mDateSetListener, year, month, day);
                 dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog2.show();
 
-                final String[] format = Settings.getSettings().getDateFormat().toPattern().toLowerCase().split("/");
+                final String[] format = Settings.getSettings().getDateFormat().toPattern()
+                    .toLowerCase().split("/");
                 char[] ymdOrder = { 'd', 'm', 'y' };
                 int i = 0;
                 for (String s : format) {
@@ -85,13 +83,15 @@ public class ModifyItemActivity extends AppCompatActivity {
             if (cat != Category.ALL) // ALL shouldn't be a choice when modifying an item
                 values.add(cat);
         }
-        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, values);
+        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this,
+            android.R.layout.simple_spinner_item, values);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchCategory3.setAdapter(adapter);
 
         // Fill the FoodUnit spinner
         final Spinner spnSearchFoodUnit2 = findViewById(R.id.spnSearchFoodUnit2);
-        ArrayAdapter<Unit> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Unit.values());
+        ArrayAdapter<Unit> adapter2 = new ArrayAdapter<>(this,
+            android.R.layout.simple_spinner_item, Unit.values());
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnSearchFoodUnit2.setAdapter(adapter2);
 
@@ -106,7 +106,7 @@ public class ModifyItemActivity extends AppCompatActivity {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                month = month +1 ;
+                month++;
                 Log.d(TAG, "onDateSet: mm/dd/yyy " + month + "/" + dayOfMonth + "/" + year);
                 //the variable date has the date.
                 String date = month + "/" + dayOfMonth + "/" + year;
@@ -117,63 +117,61 @@ public class ModifyItemActivity extends AppCompatActivity {
                 int year2 = c.get(Calendar.YEAR);
                 String date2 = (month2 +1) + "/" + day2 + "/" + year2;
 
-                if(date.compareTo(date2)< 0){
-                    textViewName.requestFocus();
+                if (date.compareTo(date2)< 0) {
+                    textViewDate.requestFocus();
                     Log.d(TAG, "The day  compareTo: " + date);
                     Log.d(TAG, "The day2 compareTo: " + date2);
-                    textViewName.setError("This Product is Expired");
-                }
-                else if(date.equals(date2)){
-                    textViewName.requestFocus();
+                    textViewDate.setError("This Product is Expired");
+                } else if (date.equals(date2)) {
+                    textViewDate.requestFocus();
                     Log.d(TAG, "The date equals: " + date);
                     Log.d(TAG, "The date equals: " + date2);
-                    textViewName.setError("This Product Will Expire today");
-                }
-                else {
-                    textViewName.requestFocus();
-                    textViewName.setError(null);
+                    textViewDate.setError("This Product Will Expire today");
+                } else {
+                    textViewDate.requestFocus();
+                    textViewDate.setError(null);
                     try {
-                        date = Settings.getSettings().getDateFormat().format(new SimpleDateFormat("MM/dd/yyyy").parse(date));
+                        date = Settings.getSettings().getDateFormat().format(
+                            new SimpleDateFormat("MM/dd/yyyy").parse(date));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    mDisplayDate2.setText(date);
+                    textViewDate.setText(date);
 
                     Log.d(TAG, "The date1 equals: " + date);
                     Log.d(TAG, "The date2 equals: " + date2);
                 }
             }
         };
-        textViewName.setText(Settings.getSettings().getDateFormat().format(foodItem.getExpirationDate()));
+
+        textViewDate.setText(Settings.getSettings().getDateFormat().format(
+            foodItem.getExpirationDate()));
+
         Button button = findViewById(R.id.button4);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String name= nameEditText.getText().toString();
-                final String count= countText.getText().toString();
-                final String textv = textViewName.getText().toString();
-                if(name.length()==0) {
+                final String name = nameEditText.getText().toString();
+                final String count = countText.getText().toString();
+                final String textv = textViewDate.getText().toString();
+                if(name.length() == 0) {
                     nameEditText.requestFocus();
                     nameEditText.setError("Field Cannot Be Empty");
-                }
-                //textv
-                else if(textv.length() ==0) {
-                    textViewName.requestFocus();
-                    textViewName.setError("Field Cannot Be Empty");
-                }
-                //count
-                else if(count.length() ==0) {
+                } else if(textv.length() == 0) {
+                    textViewDate.requestFocus();
+                    textViewDate.setError("Field Cannot Be Empty");
+                } else if(count.length() == 0) {
                     countText.requestFocus();
                     countText.setError("Field Cannot Be Empty");
-                }
-                else {
+                } else {
                     // Update FoodItem with new data
-                    foodItem.setName(((TextView)findViewById(R.id.editText4)).getText().toString());
+                    foodItem.setName(name);
                     foodItem.setCategory((Category)spnSearchCategory3.getSelectedItem());
                     foodItem.setUnits((Unit)spnSearchFoodUnit2.getSelectedItem());
-                    foodItem.setQuantity(Double.valueOf(countText.getText().toString()));
+                    foodItem.setQuantity(Double.valueOf(count));
                     try {
-                        foodItem.setExpirationDate(Settings.getSettings().getDateFormat().parse(((TextView)findViewById(R.id.tvDate2)).getText().toString()));
+                        foodItem.setExpirationDate(Settings.getSettings().getDateFormat()
+                            .parse(textv));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -181,7 +179,8 @@ public class ModifyItemActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ViewItemActivity.class);
                     intent.putExtra(FoodItem.EXTRA, new Gson().toJson(foodItem));
                     startActivity(intent);
-                    Toast.makeText(getApplicationContext(), String.format("Updated %s", foodItem), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), String.format("Updated %s", foodItem),
+                        Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -234,7 +233,8 @@ public class ModifyItemActivity extends AppCompatActivity {
         else {
             imeOptions = EditorInfo.IME_ACTION_DONE;
         }
-        int idPickerInput = Resources.getSystem().getIdentifier("numberpicker_input", "id", "android");
+        int idPickerInput = Resources.getSystem().getIdentifier("numberpicker_input", "id",
+            "android");
         TextView input = spinner.findViewById(idPickerInput);
         input.setImeOptions(imeOptions);
     }
