@@ -55,7 +55,7 @@ public class AddItemActivity extends AppCompatActivity {
     public int day;
 
     /**
-     * This will create all the elements on the activity.
+     * This will create all the elements on the AddItemActivity.
      */
 
     @Override
