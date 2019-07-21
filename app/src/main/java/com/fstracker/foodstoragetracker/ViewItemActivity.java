@@ -1,6 +1,7 @@
 package com.fstracker.foodstoragetracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ public class ViewItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item);
+        AppCompatDelegate.setDefaultNightMode((Settings.getSettings().darkMode) ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+
         String foodItemString = getIntent().getStringExtra(FoodItem.EXTRA);
         FoodItem foodItem = new Gson().fromJson(foodItemString, FoodItem.class);
 

@@ -2,6 +2,7 @@ package com.fstracker.foodstoragetracker;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        AppCompatDelegate.setDefaultNightMode((Settings.getSettings().darkMode) ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 
         spnDateFormat = findViewById(R.id.spnDateFormat);
         spnReminderUnits = findViewById(R.id.spnReminderUnits);
@@ -44,7 +47,6 @@ public class SettingsActivity extends AppCompatActivity {
         txtReminderTime = findViewById(R.id.txtReminderTime);
 
         // TODO Remove this once settings are fully implemented
-        //spnDateFormat.setEnabled(false);
         spnReminderUnits.setEnabled(false);
 
         // Fill date format spinner
