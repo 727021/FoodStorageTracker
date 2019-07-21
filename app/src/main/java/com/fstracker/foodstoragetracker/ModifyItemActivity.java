@@ -99,7 +99,7 @@ public class ModifyItemActivity extends AppCompatActivity {
 
         // Fill views with FoodItem information
         nameEditText.setText(foodItem.getName());
-        spnSearchCategory3.setSelection(Category.indexOf(foodItem.getCategory()));
+        spnSearchCategory3.setSelection(Category.indexOf(foodItem.getCategory()) - 1);
         countText.setText(String.valueOf(foodItem.getQuantity()));
         spnSearchFoodUnit2.setSelection(Unit.indexOf(foodItem.getUnits()));
 
