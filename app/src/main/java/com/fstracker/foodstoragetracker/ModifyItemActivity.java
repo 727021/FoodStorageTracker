@@ -29,11 +29,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 /**
  * This activity will ModifyItems created on the food storage application {@link FoodItem}.
  * after modified the food item the user will be transfer to {@link ViewItemActivity}.
  */
-
 public class ModifyItemActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
 
@@ -119,9 +119,9 @@ public class ModifyItemActivity extends AppCompatActivity {
                 int day2 = c.get(Calendar.DAY_OF_MONTH);
                 int month2 = c.get(Calendar.MONTH);
                 int year2 = c.get(Calendar.YEAR);
-                String date2 = (month2 +1) + "/" + day2 + "/" + year2;
+                String date2 = (month2 + 1) + "/" + day2 + "/" + year2;
 
-                if (date.compareTo(date2)< 0) {
+                if (date.compareTo(date2) < 0) {
                     textViewDate.requestFocus();
                     Log.d(TAG, "The day  compareTo: " + date);
                     Log.d(TAG, "The day2 compareTo: " + date2);
