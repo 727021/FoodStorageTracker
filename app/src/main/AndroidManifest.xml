@@ -3,65 +3,65 @@
     package="com.fstracker.foodstoragetracker">
 
     <application
-        android:name=".FoodStorageApplication"
+        android:name="final_project.fstracker.foodstoragetracker.FoodStorageApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ModifyItemActivity"
+            android:name="final_project.fstracker.foodstoragetracker.ModifyItemActivity"
             android:label="@string/activity_modifyItem_title"
-            android:parentActivityName=".MenuActivity">
+            android:parentActivityName="final_project.fstracker.foodstoragetracker.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity" />
+                android:value="final_project.fstracker.foodstoragetracker.MenuActivity" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name="final_project.fstracker.foodstoragetracker.SettingsActivity"
             android:label="@string/activity_settings_title"
-            android:parentActivityName=".MenuActivity">
+            android:parentActivityName="final_project.fstracker.foodstoragetracker.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity" />
+                android:value="final_project.fstracker.foodstoragetracker.MenuActivity" />
         </activity>
         <activity
-            android:name=".ViewItemActivity"
+            android:name="final_project.fstracker.foodstoragetracker.ViewItemActivity"
             android:label="@string/activity_ViewItem_title"
-            android:parentActivityName=".MenuActivity">
+            android:parentActivityName="final_project.fstracker.foodstoragetracker.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity" />
+                android:value="final_project.fstracker.foodstoragetracker.MenuActivity" />
         </activity>
         <activity
-            android:name=".ViewListActivity"
+            android:name="final_project.fstracker.foodstoragetracker.ViewListActivity"
             android:label="@string/activity_ViewList_title"
-            android:parentActivityName=".MenuActivity">
+            android:parentActivityName="final_project.fstracker.foodstoragetracker.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity" />
+                android:value="final_project.fstracker.foodstoragetracker.MenuActivity" />
         </activity>
         <activity
-            android:name=".ViewListByNameActivity"
+            android:name="final_project.fstracker.foodstoragetracker.ViewListByNameActivity"
             android:label="@string/activity_ViewList_title"
-            android:parentActivityName=".MenuActivity">
+            android:parentActivityName="final_project.fstracker.foodstoragetracker.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity" />
+                android:value="final_project.fstracker.foodstoragetracker.MenuActivity" />
         </activity>
         <activity
-            android:name=".DeleteItemActivity"
+            android:name="final_project.fstracker.foodstoragetracker.DeleteItemActivity"
             android:label="@string/activity_deleteItem_title" />
         <activity
-            android:name=".AddItemActivity"
+            android:name="final_project.fstracker.foodstoragetracker.AddItemActivity"
             android:label="@string/activity_addItem_title"
-            android:parentActivityName=".MenuActivity">
+            android:parentActivityName="final_project.fstracker.foodstoragetracker.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity" />
+                android:value="final_project.fstracker.foodstoragetracker.MenuActivity" />
         </activity>
-        <activity android:name=".MenuActivity">
+        <activity android:name="final_project.fstracker.foodstoragetracker.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

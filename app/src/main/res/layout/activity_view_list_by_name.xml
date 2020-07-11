@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewListByNameActivity">
+    tools:context="final_project.fstracker.foodstoragetracker.ViewListByNameActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvItemsByName"

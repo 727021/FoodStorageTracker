@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuActivity">
+    tools:context="final_project.fstracker.foodstoragetracker.MenuActivity">
 
     <EditText
         android:id="@+id/txtSearchName"
